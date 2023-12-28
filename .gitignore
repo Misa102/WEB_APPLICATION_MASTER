@@ -1,1 +1,12 @@
 node_modules/
+# .gitignore
+
+# Node.js
+node_modules/
+
+# Dependency directories
+/jspm_packages/
+/bower_components/
+
+# Vue.js
+/dist/
