@@ -31,6 +31,21 @@ function* createPostSaga(action){
     
 }
 
+function* updatePostSaga(action){
+    try{
+        console.log('updatePostSaga', { action });
+        const updatedPost = yield call(api.updatePost, action.payload);
+        console.log('[updatePostSaga - post]', updatedPost);
+        //trigger action
+        yield put(actions.updatePost.updatePostSuccess(updatedPost.data));
+    }
+    catch (err){
+        console.error(err);
+        yield put(actions.updatePost.updatePostFailure(err));
+    }
+    
+}
+
 
 function* mySaga(){
     //actions.getPosts.getPostsRequest écoute une action getPostsRequest
@@ -40,6 +55,7 @@ function* mySaga(){
     // puis résultat va dans variable posts
     yield takeLatest(actions.getPosts.getPostsRequest, fetchPostsSaga);
     yield takeLatest(actions.createPost.createPostRequest, createPostSaga);
+    yield takeLatest(actions.updatePost.updatePostRequest, updatePostSaga);
 
 }
 

@@ -17,6 +17,10 @@ export default function CreatePostModel(){
 
     const onClose = React.useCallback(()=>{
         dispatch(hideModel());
+        setData({
+            title: '',
+            content: '',
+        })
     }, [dispatch]);
 
     const onSubmit = React.useCallback(()=>{

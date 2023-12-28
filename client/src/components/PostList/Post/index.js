@@ -3,14 +3,22 @@ import  {Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, IconButt
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import moment from 'moment';
+import { useDispatch } from "react-redux";
+import { updatePost } from "../../../redux/actions";
 
 
 export default function Post({post}){
+    const dispatch = useDispatch();
+
+    const onLikeBtnClick = React.useCallback(()=> {
+        dispatch(updatePost.updatePostRequest({...post, likeCount: post.likeCount + 1}));
+    },[dispatch,post]);
+
     return <Card>
         <CardHeader 
         avatar = {<Avatar>A</Avatar>}
         title={post.author}
-        subheader = {moment(post.updatedAt).format('HH:MM DD MM,YYYY ')}
+        subheader = {moment(post.updatedAt).format('YYYY-MM-DD HH:MM ')}
         action={
             <IconButton>
                <MoreVertIcon/> 
@@ -29,10 +37,10 @@ export default function Post({post}){
         </CardContent>
 
         <CardActions>
-            <IconButton>
+            <IconButton onClick={onLikeBtnClick}>
                 <FavoriteIcon/>
                 <Typography component="span" color="textSecondary">
-                    {post.likeCount}
+                    {`${post.likeCount} likes`}
                 </Typography>
             </IconButton>
         </CardActions>

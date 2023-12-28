@@ -24,6 +24,12 @@ export const createPost = createActions({
     createPostFailure: (err) => err,
 });
 
+export const updatePost = createActions({
+    updatePostRequest : (payload) => payload,
+    updatePostSuccess: (payload) => payload,
+    updatePostFailure: (err) => err,
+});
+
 // action pour show model quand on clique sur le bouton + pour creer new post
 export const showModel  = createAction('SHOW_CREATE_POST_MODEL');
 export const hideModel  = createAction('HIDE_CREATE_POST_MODEL');
