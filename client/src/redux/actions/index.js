@@ -31,8 +31,8 @@ export const updatePost = createActions({
 });
 
 // action pour show model quand on clique sur le bouton + pour creer new post
-export const showModel  = createAction('SHOW_CREATE_POST_MODEL');
-export const hideModel  = createAction('HIDE_CREATE_POST_MODEL');
+export const showModal  = createAction('SHOW_CREATE_POST_MODEL');
+export const hideModal  = createAction('HIDE_CREATE_POST_MODEL');
 
 
 

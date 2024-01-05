@@ -7,21 +7,21 @@ import { useDispatch } from "react-redux";
 import Header from "../components/Header";
 import PostList from "../components/PostList";
 import useStyles from './styles';
-import { showModel } from "../redux/actions";
-import CreatePostModel from "../components/CreatePostModel";
+import CreatePostModal from "../components/CreatePostModal";
+import { showModal } from "../redux/actions";
 
 export default function QuotesPage(){
     const classes = useStyles();
     const dispatch = useDispatch();
 
     const openCreatePostModel = React.useCallback(()=>{
-        dispatch(showModel());
+        dispatch(showModal());
     }, [dispatch]);
 
     return <Container maxWidth = "lg">
         <Header/>
         <PostList/>
-        <CreatePostModel/>
+        <CreatePostModal/>
 
 
         <Fab color='primary' className={classes.fab} onClick={openCreatePostModel}>

@@ -24,7 +24,7 @@ export default function postsReducers(state = INIT_STATE.posts, action){
                 ...state,
                 data: [...state.data, action.payload],
             };    
-        case getType(updatePost.createPostSuccess):
+        case getType(updatePost.updatePostRequest):
             return{
                 ...state,
                 data: state.data.map((post) =>

@@ -3,7 +3,7 @@ export const INIT_STATE = {
         isLoading: false, //on n'appelle pas API pour get tous les posts ciations-> false par defaut
         data: [],
     },
-    model: {
+    modal: {
         isShow: false,
 
     },
