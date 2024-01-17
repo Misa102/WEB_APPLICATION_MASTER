@@ -1,4 +1,4 @@
-import { createActions , createAction} from 'redux-actions';
+import { createActions} from 'redux-actions';
 
 // pour un action réalise un side-effect comme appeller API, il y a 3 actions:
 // envoyer une requete 
@@ -31,8 +31,10 @@ export const updatePost = createActions({
 });
 
 // action pour show model quand on clique sur le bouton + pour creer new post
-export const showModal  = createAction('SHOW_CREATE_POST_MODEL');
-export const hideModal  = createAction('HIDE_CREATE_POST_MODEL');
+export const modal = createActions({
+    showModal : (payload) => payload,
+    hideModal: (payload) => payload,
+});
 
 
 

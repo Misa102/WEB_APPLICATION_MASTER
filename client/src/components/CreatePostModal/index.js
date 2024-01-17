@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, TextField, TextareaAutosize } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
-import { modalState$ } from '../../redux/selectors';
-import { createPost, hideModal } from "../../redux/actions";
+import { modal, createPost } from "../../redux/actions";
+
+import { modalState$ } from "../../redux/selectors";
 
 export default function CreatePostModal() {
     const [data, setData] = React.useState({
@@ -10,14 +10,17 @@ export default function CreatePostModal() {
         content: '',
     })
     const dispatch = useDispatch();
-    // const { isShow } = useSelector(modalState$);
-    // const classes = useStyles();
-    useSelector(modalState$ => {
-        console.log(modalState$)
-    });
+    const postModal = useSelector(modalState$);
+    if(!postModal.isShow && postModal.id !== null && postModal !== undefined) {
+        let btn = document.getElementById('closePost');
+        if(btn !== null & btn !== undefined) {
+            btn.click();
+            dispatch(modal.showModal('closePost'));
+        }
+    }
 
-    const onClose = React.useCallback(()=>{
-        dispatch(hideModal());
+    const onClose = React.useCallback(() => {
+        dispatch(modal.hideModal('closePost'));
 
         setData({
             title: '',
@@ -28,7 +31,7 @@ export default function CreatePostModal() {
     const onSubmit = React.useCallback(()=>{
         dispatch(createPost.createPostRequest(data));
         onClose();
-    }, [data,dispatch]);
+    }, [ data, dispatch ]);
 
     const modalBody = (
         <div class="modal fade" id="createPost" tabindex="-1" aria-labelledby="createPost" aria-hidden="true">
@@ -36,7 +39,7 @@ export default function CreatePostModal() {
             <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5">Create post</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button id="closePost" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
