@@ -1,5 +1,5 @@
 import React from 'react'
-import aboutIMG from '../assets/AIMG.png';
+import aboutIMG from '../assets/aboutIMG.png';
 import "../styles/About.css";
 
 function About() {
