@@ -1,11 +1,10 @@
 import axios from 'axios';
-
-//const URL = 'http://localhost:5000';
+import { API_URL } from "../constant";
 
 // creer api fetchPosts
-export const fetchPosts = () => axios.get('http://localhost:5000/posts');
+export const fetchPosts = () => axios.get(`${API_URL}/posts`);
 
 // api pour creer une citation
-export const createPost = (payload) => axios.post('http://localhost:5000/posts', payload);
+export const createPost = (payload) => axios.post(`${API_URL}/posts`, payload);
 
-export const updatePost = (payload) => axios.post('http://localhost:5000/posts/update', payload);
+export const updatePost = (payload) => axios.post(`${API_URL}/posts/update`, payload);

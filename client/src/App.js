@@ -1,27 +1,23 @@
 import "./App.css";
 import HomePage from "./pages/HomePage";
+import Login from "./login/login";
 import QuotesPage from "./pages/QuotesPage";
-import Navbar from "../components_homepage/Navbar";
-import Footer from "../components_homepage/Footer";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./layout/Navbar";
+import Footer from "./layout/Footer";
 
 function App() {
-  //return <QuotesPage/>;
-  //return <HomePage/>;
-  return(
-
-    <div className="App">
-        <Router>
-          <Navbar/>
-          <Switch>
-            <Route path="/" exact component={HomePage}/>
-            <Route path="/" exact component={QuotesPage}/>
-
-          </Switch>
-          <Footer/>
-
-        </Router>
+    return (
+        <div className="App">
+            <Router>
+                <Navbar />
+                <Routes>
+                    <Route path="/" exact element={<HomePage />} />
+                    <Route path="/auth/login" exact element={<Login />} />
+                    {/* <Route path="/" exact component={QuotesPage} /> */}
+                </Routes>
+                <Footer />
+            </Router>
         </div>
     );
 }

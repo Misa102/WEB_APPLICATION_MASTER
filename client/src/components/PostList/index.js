@@ -1,29 +1,44 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import * as actions from '../../redux/actions';
+import * as actions from "../../redux/actions";
 
-
-import Post from "./Post";
 import { postsState$ } from "../../redux/selectors";
 
-export default function PostList(){
+export default function PostList() {
     const dispatch = useDispatch();
     const posts = useSelector(postsState$);
 
-    console.log('[PostList - posts]', posts);
+    console.log("[PostList - posts]", posts);
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         dispatch(actions.getPosts.getPostsRequest());
     }, [dispatch]);
-
+    
     return (
-        <Grid container spacing={2} alignItems="stretch">
-            {posts.map((post) => (
-                <Grid item xs={12} sm={6}>
-                    <Post key={post._id} post={post} />
-                </Grid>
-            ))}
-        </Grid>
+        <>
+            <section className="vh-100" style={{ backgroundColor: "#eee" }}>
+                <div className="container py-5">
+                    <div className="row d-flex align-items-center h-100">
+                        {posts.map((post) => (
+                            <div className="col col-lg-6">
+                                <figure
+                                    className="bg-white p-3 rounded"
+                                    style={{
+                                        borderLeft: ".25rem solid #a34e78;",
+                                    }}
+                                >
+                                    <blockquote className="blockquote pb-2">
+                                        <p>{post.content}</p>
+                                    </blockquote>
+                                    <figcaption className="blockquote-footer mb-0 font-italic">
+                                        {post.createBy}
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        </>
     );
 }

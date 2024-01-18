@@ -5,11 +5,17 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-var corsOptions = {
-    origin: "http://localhost:5000",
-};
+// var corsOptions = {
+//     origin: "http://localhost:3000",
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -19,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
+require('./app/routes/post.routes')(app);
 
 // simple route
 app.get("/", (req, res) => {

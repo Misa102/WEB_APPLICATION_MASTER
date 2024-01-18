@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import posts from './routers/posts.js';
 import mongoose from 'mongoose';
-import authRouter from './auth/auth.routes.js';
+// import authRouter from './auth/auth.routes.js';
 
 // const authRouter = require('./src/auth/auth.routes');
 // const userRouter = require('./users/users.routes');
