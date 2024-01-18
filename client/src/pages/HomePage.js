@@ -6,7 +6,7 @@ import '../styles/HomePage.css';
 function HomePage(){
     return ( 
      <div className="homePage" >
-        <div className="headerContainer">
+        <div className="headerContainer" style={{ backgroundImage:`url{${BannerImage}}` }}>
             
             <h1>Citation du jour</h1>
             <p>LES CITATIONS POUR NOUS INSPIRER</p>
