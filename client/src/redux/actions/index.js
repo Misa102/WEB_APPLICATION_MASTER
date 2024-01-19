@@ -35,7 +35,7 @@ export const modal = createActions({
     hideModal: (payload) => payload,
 });
 
-export * from './auth';
+export {authAction} from './auth';
 
 
 
