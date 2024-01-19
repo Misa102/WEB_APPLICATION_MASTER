@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 
-import Header from "../components/Header";
 import PostList from "../components/PostList";
 import CreatePostModal from "../components/CreatePostModal";
 
@@ -23,4 +22,9 @@ export default function QuotesPage(){
     //         <AddIcon/>
     //     </Fab>
     // </Container>
+
+    return (
+        <PostList/>
+    );
+
 }
