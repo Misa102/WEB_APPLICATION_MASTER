@@ -1,5 +1,4 @@
 import { createActions} from 'redux-actions';
-
 // pour un action réalise un side-effect comme appeller API, il y a 3 actions:
 // envoyer une requete 
 // quand avec success
@@ -35,6 +34,8 @@ export const modal = createActions({
     showModal : (payload) => payload,
     hideModal: (payload) => payload,
 });
+
+export * from './auth';
 
 
 
