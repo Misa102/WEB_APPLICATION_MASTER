@@ -1,4 +1,47 @@
 import { Link } from "react-router-dom";
+import authUtils from "../utils/auth.util";
+
+function StateLogin() {
+    const isLogin = authUtils.isLogin();
+    const user = authUtils.getUser();
+
+    function onSignOut(e) {
+        e.preventDefault();
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        window.location.reload();
+    }
+
+    if (isLogin) {
+        return <>
+            <div className="navbar-nav ms-lg-4">
+                <span className="nav-item nav-link">Welcome, {user.username}</span>
+            </div>
+            <div className="navbar-nav ms-lg-4" role="button" onClick={onSignOut}>
+                <span className="nav-item nav-link">
+                    Sign out
+                </span>
+            </div>
+        </>;
+    }
+    return (
+        <>
+            <div className="navbar-nav ms-lg-4">
+                <Link className="nav-item nav-link" to="/auth/login">
+                    Sign in
+                </Link>
+            </div>
+            <div className="d-flex align-items-lg-center mt-3 mt-lg-0">
+                <Link
+                    className="btn btn-sm btn-primary w-full w-lg-auto"
+                    to="/register"
+                >
+                    Register
+                </Link>
+            </div>
+        </>
+    );
+}
 
 function Navbar() {
     return (
@@ -23,7 +66,10 @@ function Navbar() {
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div className="collapse navbar-collapse" id="navbarCollapse">
+                    <div
+                        className="collapse navbar-collapse"
+                        id="navbarCollapse"
+                    >
                         <div className="navbar-nav mx-lg-auto">
                             <Link
                                 className="nav-item nav-link active"
@@ -42,19 +88,7 @@ function Navbar() {
                                 Contact
                             </Link>
                         </div>
-                        <div className="navbar-nav ms-lg-4">
-                            <Link className="nav-item nav-link" to="/auth/login">
-                                Sign in
-                            </Link>
-                        </div>
-                        <div className="d-flex align-items-lg-center mt-3 mt-lg-0">
-                            <Link
-                                className="btn btn-sm btn-primary w-full w-lg-auto"
-                                to="/register"
-                            >
-                                Register
-                            </Link>
-                        </div>
+                        <StateLogin />
                     </div>
                 </div>
             </nav>

@@ -9,7 +9,7 @@ function LoginError() {
     const message = authSelector.error.message;
     if (message !== undefined && message !== null && message !== "") {
         setTimeout(() => {
-            dispatch(authAction.actionLoginFailure({ error : ""}));
+            dispatch(authAction.actionLoginFailure({ error: "" }));
         }, 1000);
         return (
             <div className="col-12">
@@ -27,7 +27,17 @@ export default function Login() {
 
     const dispatch = useDispatch();
 
+    const auth = useSelector(authState$);
+    console.log(auth.response)
+    if(auth.response !== undefined && auth.response.id !== undefined) {
+        dispatch(authAction.actionLoginSuccess(undefined));
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 400);
+    }
+
     const onSubmit = useCallback(() => {
+        dispatch(authAction.actionLoginSuccess(undefined));
         dispatch(authAction.actionLogin(request));
     }, [request, dispatch]);
 
