@@ -1,8 +1,9 @@
 function isLogin() {
-    return (
-        localStorage.getItem("token") !== null &&
-        localStorage.getItem("token") !== undefined
-    );
+    return localStorage.getItem("token") !== null && localStorage.getItem("token") !== undefined;
+}
+
+function getUser() {
+    return JSON.parse(localStorage.getItem("user"));
 }
 
 function authHeader() {
@@ -17,7 +18,8 @@ function authHeader() {
 
 const authUtils = {
     isLogin,
-    authHeader
+    authHeader,
+    getUser
 }
 
 module.exports = authUtils;
