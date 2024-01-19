@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import posts from './routers/posts.js';
 import mongoose from 'mongoose';
-import authRouter from './auth/auth.routes.js';
+// import authRouter from './auth/auth.routes.js';
 
 // const authRouter = require('./src/auth/auth.routes');
 // const userRouter = require('./users/users.routes');
@@ -32,7 +32,7 @@ mongoose
     .then(()=>{
         console.log('Connected to DB');
         app.listen(PORT,()=>{
-            console.log('Server is running on port ${PORT}');
+            console.log(`Server is running on port ${PORT}`);
         });
     })
     .catch(err =>{
