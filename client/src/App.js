@@ -5,25 +5,28 @@ import Contact from "./pages/Contact";
 import Login from "./login/login";
 import Register from "./pages/Register";
 import QuotesPage from "./pages/QuotesPage";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Navbar from "./layout/Navbar";
-import Footer from "./layout/Footer";
+import Navbar from "../components_homepage/Navbar";
+import Footer from "../components_homepage/Footer";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+
 
 function App() {
-    return (
-        <div className="App">
-            <Router>
-                <Navbar />
-                <Routes>
-                    <Route path="/" exact element={<HomePage />} />
-                    <Route path="/quotes" exact element={<QuotesPage />} />
-                    <Route path="/about" exact element={<About />} />
-                    <Route path="/contact" exact element={<Contact />} />
-                    <Route path="/auth/login" exact element={<Login />} />
-                    <Route path="/register" exact element={<Register/>}/>
-                </Routes>
-                <Footer />
-            </Router>
+  //return <QuotesPage/>;
+  //return <HomePage/>;
+  return(
+
+    <div className="App">
+        <Router>
+          <Navbar/>
+          <Switch>
+            <Route path="/" exact component={HomePage}/>
+            <Route path="/quoutes" exact component={QuotesPage}/>
+            <Route path="/about" exact component={About}/>
+
+          </Switch>
+          <Footer/>
+
+        </Router>
         </div>
     );
 }

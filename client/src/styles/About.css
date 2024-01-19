@@ -26,7 +26,7 @@
     width: 1200px;
   }
   
-  .about .aboutBottom h2 {
+  .about .aboutBottom h1 {
     font-weight: 400;
     font-size: 70px;
     color: black;
@@ -34,5 +34,4 @@
     display: flex;
     justify-content: center;
     transform: translateY(-40px);
-    margin-bottom: 50px; 
   }
