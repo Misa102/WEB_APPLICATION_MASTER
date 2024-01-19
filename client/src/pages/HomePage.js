@@ -5,7 +5,7 @@ import "../styles/HomePage.css";
 import PostList from "../components/post/list";
 import SavePost from "../components/post/save";
 
-function HomePage() {
+export default function HomePage() {
     return (
         <>
             <div className="homePage">

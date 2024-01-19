@@ -1,12 +1,11 @@
 import React from 'react'
-import aboutIMG from '../assets/aboutIMG.png';
 import "../styles/About.css";
 
 function About() {
   return (
     <div className='about'>
         <div className='aboutTop' 
-             style={{ backgroundImage: `url(${aboutIMG})` }}>
+             style={{ backgroundImage: `url(../assets/aboutIMG.png)` }}>
 
              </div>
         <div className='aboutBottom'>

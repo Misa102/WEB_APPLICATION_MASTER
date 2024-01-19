@@ -1,11 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 import { API_URL } from "../constant";
-import authHeader from '../utils/auth.util';
+import authUtils from "../utils/auth.util";
 
-// creer api fetchPosts
+const headers = authUtils.authHeader();
+
 export const fetchPosts = () => axios.get(`${API_URL}/posts`);
 
-// api pour creer une citation
-export const createPost = (payload) => axios.post(`${API_URL}/posts`, payload, { headers: authHeader() });
+export const createPost = (payload) =>
+    axios.post(`${API_URL}/posts`, payload, { headers: headers});
 
-export const updatePost = (payload) => axios.post(`${API_URL}/posts/update`, payload);
+export const updatePost = (payload) =>
+    axios.post(`${API_URL}/posts/update`, payload, { headers: headers});

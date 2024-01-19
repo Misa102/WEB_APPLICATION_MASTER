@@ -15,4 +15,9 @@ function authHeader() {
     }
 }
 
-module.exports = { isLogin, authHeader };
+const authUtils = {
+    isLogin,
+    authHeader
+}
+
+module.exports = authUtils;

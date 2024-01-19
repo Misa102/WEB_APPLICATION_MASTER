@@ -110,7 +110,7 @@ export default function SavePost() {
 
     return (
         <>
-            <div class="position-absolute bottom-0 end-0 rounded-circle m-5">
+            <div class="position-fixed bottom-0 end-0 rounded-circle m-5">
                 <button
                     type="button"
                     class="btn btn-success btn-lg"

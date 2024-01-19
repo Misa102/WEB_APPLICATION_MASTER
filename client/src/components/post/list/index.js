@@ -15,7 +15,7 @@ export default function PostList() {
 
     return (
         <>
-            <section className="vh-100" style={{ backgroundColor: "#eee" }}>
+            <div style={{ backgroundColor: "#eee" }}>
                 <div className="container py-5">
                     <div className="row d-flex align-items-center h-100">
                         {posts.map((post) => (
@@ -36,7 +36,7 @@ export default function PostList() {
                                         <blockquote className="blockquote pb-2">
                                             <p>
                                                 {format(
-                                                    post.createdAt,
+                                                    post.modifiedAt,
                                                     "yyyy-MM-dd"
                                                 )}
                                             </p>
@@ -47,7 +47,7 @@ export default function PostList() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </div>
         </>
     );
 }
