@@ -2,7 +2,7 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import About from "./pages/About";
 import QuotesPage from "./pages/QuotesPage";
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, Outlet} from 'react-router-dom';
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
 import Login from "./login/login";
@@ -25,6 +25,7 @@ function App() {
           <Footer />
 
         </Router>
+        <Outlet/>
         </div>
     );
 }

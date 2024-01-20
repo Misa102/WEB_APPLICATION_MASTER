@@ -4,6 +4,7 @@ import * as actions from "../../../redux/actions";
 
 import { postsState$ } from "../../../redux/selectors";
 import { format } from "date-fns";
+import Icon from "../../icon";
 
 export default function PostList() {
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function PostList() {
                 <div className="container py-5">
                     <div className="row d-flex align-items-center h-100">
                         {posts.map((post) => (
-                            <div className="col col-lg-6">
+                            <div className="col col-lg-6 col-md-6">
                                 <figure
                                     className="bg-white p-3 rounded"
                                     style={{
@@ -28,6 +29,7 @@ export default function PostList() {
                                 >
                                     <blockquote className="blockquote pb-2">
                                         <p>{post.content}</p>
+                                        <Icon iconName="favorite"/>
                                     </blockquote>
                                     <div className="d-flex justify-content-between">
                                         <blockquote className="font-italic">

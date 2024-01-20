@@ -1,26 +1,39 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { modal, createPost } from "../../../redux/actions";
-
-import { modalState$ } from "../../../redux/selectors";
+import { modalState$, postsStateError$ } from "../../../redux/selectors";
+import { Navigate } from "react-router-dom";
 import Icon from "../../icon";
 
-export default function SavePost() {
-    const [request, setData] = React.useState({
-        title: "",
-        content: "",
-    });
+function NavigationToLogin() {
+    const error = useSelector(postsStateError$);
+    const dispatch = useDispatch();
+    if(error !== undefined) {
+        dispatch(createPost.createPostFailure(undefined));
+        return (<Navigate replace to="/auth/login" />)
+    }
+}
+
+function CheckCloseModal() {
     const dispatch = useDispatch();
     const postModal = useSelector(modalState$);
     if (!postModal.isShow && postModal.id !== null && postModal !== undefined) {
         let btn = document.getElementById("closePost");
         if ((btn !== null) & (btn !== undefined)) {
-            btn.click();
             dispatch(modal.showModal("closePost"));
+            btn.click();
         }
     }
+}
 
-    const onClose = React.useCallback(() => {
+export default function SavePost() {
+    const [request, setData] = useState({
+        title: "",
+        content: "",
+    });
+    const dispatch = useDispatch();
+
+    const onClose = useCallback(() => {
         dispatch(modal.hideModal("closePost"));
 
         setData({
@@ -29,7 +42,7 @@ export default function SavePost() {
         });
     }, [dispatch]);
 
-    const onSubmit = React.useCallback(() => {
+    const onSubmit = useCallback(() => {
         dispatch(createPost.createPostRequest(request));
         onClose();
     }, [request, dispatch]);
@@ -123,6 +136,8 @@ export default function SavePost() {
                 </button>
             </div>
             {modalBody}
+            <NavigationToLogin/>
+            <CheckCloseModal/>
         </>
     );
 }

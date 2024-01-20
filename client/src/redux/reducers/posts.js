@@ -24,6 +24,11 @@ export default function postsReducers(state = INIT_STATE.posts, action) {
                 ...state,
                 data: [...state.data, action.payload],
             };
+        case getType(createPost.createPostFailure):
+            return {
+                ...state,
+                error: action.payload
+            };
         case getType(createPost.createPostRequest):
             return {
                 ...state,

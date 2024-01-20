@@ -1,22 +1,19 @@
 {
-  "name": "server",
+  "name": "server_temp",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "type": "module",
+  "description": "quote server",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "test": "test"
   },
-  "keywords": [],
-  "author": "",
+  "author": "misa",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "discord.js": "^14.14.1",
     "express": "^4.18.2",
-    "mongodb": "^4.17.2",
-    "mongoose": "^8.0.3",
-    "nodemon": "^3.0.3"
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.1.0"
   }
 }
