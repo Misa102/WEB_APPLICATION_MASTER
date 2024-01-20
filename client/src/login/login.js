@@ -1,22 +1,25 @@
 import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authAction } from "../redux/actions";
-import { authState$ } from "../redux/selectors";
+import { authState$, authStateFailure$ } from "../redux/selectors";
 
 function LoginError() {
     const dispatch = useDispatch();
-    const authSelector = useSelector(authState$);
-    const message = authSelector.error.message;
-    if (message !== undefined && message !== null && message !== "") {
-        setTimeout(() => {
-            dispatch(authAction.actionLoginFailure({ error: "" }));
-        }, 1000);
-        return (
-            <div className="col-12">
-                <span className="text-danger">{message}</span>
-            </div>
-        );
+    const authSelector = useSelector(authStateFailure$);
+    if(authSelector !== null && authSelector !== undefined) {
+        const message = (authSelector.message === undefined || authSelector.message === null) ? "" : authSelector.message;
+        if (message !== "") {
+            setTimeout(() => {
+                dispatch(authAction.actionLoginFailure({ error: "" }));
+            }, 1000);
+            return (
+                <div className="col-12">
+                    <span className="text-danger">{message}</span>
+                </div>
+            );
+        }
     }
+    
 }
 
 export default function Login() {
@@ -28,7 +31,6 @@ export default function Login() {
     const dispatch = useDispatch();
 
     const auth = useSelector(authState$);
-    console.log(auth.response)
     if(auth.response !== undefined && auth.response.id !== undefined) {
         dispatch(authAction.actionLoginSuccess(undefined));
         setTimeout(() => {

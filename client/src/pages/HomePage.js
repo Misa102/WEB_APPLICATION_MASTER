@@ -4,6 +4,14 @@ import BannerImage from "../assets/background.png";
 import "../styles/HomePage.css";
 import PostList from "../components/post/list";
 import SavePost from "../components/post/save";
+import authUtils from "../utils/auth.util";
+
+function CheckLoginSavePost() {
+    const isLogin = authUtils.isLogin();
+    // if (isLogin) {
+        return <SavePost />;
+    // }
+}
 
 export default function HomePage() {
     return (
@@ -23,7 +31,7 @@ export default function HomePage() {
             </div>
 
             <PostList />
-            <SavePost />
+            <CheckLoginSavePost />
         </>
     );
 }
