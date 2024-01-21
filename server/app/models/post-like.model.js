@@ -1,15 +1,16 @@
 const mongoose = require("mongoose");
 
-const Post = mongoose.model(
-    "Post",
+const PostLike = mongoose.model(
+    "PostLike",
     new mongoose.Schema({
-        title: String,
-        content: String,
+        post: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post"
+        },
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         },
-        totalLike: {type: Number, default: 0},
         createdAt: { type: Date, default: Date.now },
         modifiedAt: { type: Date, default: Date.now },
         createBy: String,
@@ -17,4 +18,4 @@ const Post = mongoose.model(
     })          
 );
 
-module.exports = Post;
+module.exports = PostLike;

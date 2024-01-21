@@ -18,8 +18,8 @@ function App() {
           <Routes>
             <Route path="/" exact element={<HomePage/>}/>
             <Route path="/auth/login" exact element={<Login/>}/>
-            <Route path="/quoutes" exact component={QuotesPage}/>
-            <Route path="/about" exact component={About}/>
+            <Route path="/quotes" exact element={<QuotesPage/>}/>
+            <Route path="/about" exact element={<About/>}/>
 
           </Routes>
           <Footer />

@@ -2,11 +2,16 @@ const db = require("../models");
 
 const Post = db.post;
 const User = db.user;
+const PostLike = db.postLike;
 
 exports.findAllPost = (req, res) => {
     console.log("rest request to find all posts");
     Post.find()
         .then((post) => {
+            // let postMap = [];
+            // if(post.length > 0) {
+            //     PostLike.find()
+            // }
             res.status(200).send(post);
         })
         .catch((err) => {
