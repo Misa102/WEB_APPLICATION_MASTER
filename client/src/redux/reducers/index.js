@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import posts from './posts';
-import modal from './modal';
-import auth from './auth';
+import posts from './posts.reducer';
+import modal from './modal.reducer';
+import auth from './auth.reducer';
+import likePost from './like-post.reducer';
 
 export default combineReducers({
     posts,
     modal,
-    auth
+    auth,
+    likePost
 });

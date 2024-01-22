@@ -1,3 +1,7 @@
-export default function Icon({iconName}) {
-    return <span className="material-symbols-outlined">{iconName}</span>;
+export default function Icon({ iconName, color }) {
+    return (
+        <span className="material-symbols-outlined" style={{ color: color }}>
+            {iconName}
+        </span>
+    );
 }

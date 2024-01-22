@@ -13,6 +13,13 @@ export const INIT_STATE = {
         request: {},
         error: {},
         response: {}
+    },
+    likePost: {
+        requestSave: {},
+        requestDelete: {},
+        error: {},
+        response: {},
+        mapLikePost: new Map()
     }
 };
 

@@ -36,6 +36,7 @@ export const modal = createActions({
 });
 
 export {authAction} from './auth';
+export * from './like-post';
 
 
 
