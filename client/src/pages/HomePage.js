@@ -24,7 +24,7 @@ export default function HomePage() {
                     <h1>Citation du jour</h1>
                     <p>LES CITATIONS POUR NOUS INSPIRER</p>
 
-                    <Link to="/citations">
+                    <Link to="/quotes">
                         <button>VISITER</button>
                     </Link>
                 </div>

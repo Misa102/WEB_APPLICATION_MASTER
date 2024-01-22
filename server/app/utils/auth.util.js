@@ -13,4 +13,4 @@ getUser = (req) => {
 const authUtils = {
     getUser
 };
-module.exports = authUtils;
+module.exports = authUtils; 

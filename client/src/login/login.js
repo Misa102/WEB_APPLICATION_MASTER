@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { authAction } from "../redux/actions";
 import { authState$, authStateFailure$ } from "../redux/selectors";
 
+import DiscordButton from './DiscordButton';
+
 function LoginError() {
     const dispatch = useDispatch();
     const authSelector = useSelector(authStateFailure$);
@@ -140,16 +142,21 @@ export default function Login() {
                                                 onClick={onSubmit}
                                             >
                                                 Log In
+                                               
                                             </button>
+                                            
                                         </div>
                                     </div>
+
+                                    {/* Bouton de connexion avec Discord */}
+                                    <DiscordButton />
                                 </div>
                                 <div className="row">
                                     <div className="col-12">
                                         <hr className="mt-5 mb-4 border-secondary-subtle" />
                                         <div className="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center">
                                             <a
-                                                href="#!"
+                                                href="/register"
                                                 className="link-secondary text-decoration-none"
                                             >
                                                 Create new account

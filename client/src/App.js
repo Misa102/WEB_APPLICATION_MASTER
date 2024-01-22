@@ -1,11 +1,13 @@
 import "./App.css";
-import HomePage from "./pages/HomePage";
-import About from "./pages/About";
-import QuotesPage from "./pages/QuotesPage";
 import {BrowserRouter as Router, Route, Routes, Outlet} from 'react-router-dom';
 import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
 import Login from "./login/login";
+import Contact from "./pages/Contact";
+import Register from "./pages/Register";
+import HomePage from "./pages/HomePage";
+import About from "./pages/About";
+import QuotesPage from "./pages/QuotesPage";
 
 function App() {
   //return <QuotesPage/>;
@@ -20,6 +22,10 @@ function App() {
             <Route path="/auth/login" exact element={<Login/>}/>
             <Route path="/quotes" exact element={<QuotesPage/>}/>
             <Route path="/about" exact element={<About/>}/>
+            <Route path="/contact" exact element={<Contact/>}/>
+            <Route path="/register" exact element={<Register/>}/>
+
+
 
           </Routes>
           <Footer />

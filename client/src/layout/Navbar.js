@@ -78,15 +78,15 @@ function Navbar() {
                             >
                                 Accueil
                             </Link>
-                            <Link className="nav-item nav-link" to="/citations">
-                                Citations
-                            </Link>
+
                             <Link className="nav-item nav-link" to="/quotes">
                                 Quotes
                             </Link>
+
                             <Link className="nav-item nav-link" to="/about">
                                 About
                             </Link>
+                            
                             <Link className="nav-item nav-link" to="/contact">
                                 Contact
                             </Link>
