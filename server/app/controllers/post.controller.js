@@ -6,13 +6,34 @@ const PostLike = db.postLike;
 
 exports.findAllPost = (req, res) => {
     console.log("rest request to find all posts");
+    let userId = "";
+    let query = req.query;
+    if (query.hasOwnProperty("userId")){
+        userId = String(query.userId);
+    }
     Post.find()
         .then((post) => {
-            // let postMap = [];
-            // if(post.length > 0) {
-            //     PostLike.find()
-            // }
-            res.status(200).send(post);
+            let postMap = Object.assign([], post);
+            if (post.length > 0) {
+                PostLike.find({ post: { $in: post } }).then((postLike) => {
+                    let convertPost = postMap.map(v => {
+                        let isLike = postLike.filter(pl => (pl.post._id.equals(v.id)) && (pl.user._id.equals(userId))).length > 0;
+                        return {
+                            id: v._id,
+                            title: v.title,
+                            content: v.content,
+                            totalLike: v.totalLike,
+                            createBy: v.createBy,
+                            modifiedAt: v.modifiedAt,
+                            isLike: isLike
+                        }
+                    });
+                    res.status(200).send(convertPost);
+                });
+                
+            } else {
+                res.status(200).send(post);
+            }
         })
         .catch((err) => {
             res.status(500).send({ message: err });

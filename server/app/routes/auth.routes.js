@@ -1,12 +1,6 @@
 const { verifySignUp } = require("../middlewares");
 const controller = require("../controllers/auth.controller");
 
-
-//add discord authentication route 
-const controller = require("../controllers/auth.controller");
-
-
-
 module.exports = function (app) {
     app.use(function (req, res, next) {
         res.header(
@@ -32,5 +26,5 @@ module.exports = function (app) {
 
     app.get("/api/auth/discord-callback", controller.discordCallback);
 
-    app.get("/api/auth/check-token", controller.verifyToken);
+    // app.get("/api/auth/check-token", controller.verifyToken);
 };

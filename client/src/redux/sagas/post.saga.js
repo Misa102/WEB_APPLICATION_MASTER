@@ -4,15 +4,10 @@ import * as api from "../../api";
 
 // generator fct quand il y a un action a lieu
 function* fetchPostsSaga(action) {
-
-    
     try {
         const posts = yield call(api.fetchPosts);
-        console.log("[posts]", posts);
-        //trigger action
         yield put(actions.getPosts.getPostsSuccess(posts.data));
     } catch (err) {
-        console.error(err);
         yield put(actions.getPosts.getPostsFailure(err));
     }
 }

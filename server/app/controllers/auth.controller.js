@@ -3,50 +3,45 @@ const db = require("../models");
 const User = db.user;
 const Authority = db.authority;
 
-
 // add for connection with Discord
 const axios = require("axios");
 const { getUser } = require("../utils/auth.util");
 
-exports.discordLogin = async(req, res) =>{
+exports.discordLogin = async (req, res) => {
     //rediriger l'utilisateur ver l'URL d'autorisation Discord
     res.redirect(
         `https://discord.com/login?client_id=${config.DISCORD_CLIENT_ID}&redirect_uri=${config.DISCORD_REDIRECT_URI}&response_type=code&scope=identify`
     );
 };
+
 exports.discordCallback = async (req, res) => {
     try {
+        const code = req.query.code;
 
-      const code = req.query.code;
-  
-      // Échanger le code d'autorisation contre un token d'accès Discord
-      const response = await axios.post(
-        "https://discord.com/api/oauth2/token",
-        null,
-        {
-          params: {
-            client_id: config.DISCORD_CLIENT_ID,
-            client_secret: config.DISCORD_CLIENT_SECRET,
-            redirect_uri: config.DISCORD_REDIRECT_URI,
-            code: code,
-            grant_type: "authorization_code",
-            scope: "identify",
-          },
-        }
-      );
-  
-      const discordToken = response.data.access_token;
+        const response = await axios.post(
+            "https://discord.com/api/oauth2/token",
+            null,
+            {
+                params: {
+                    client_id: config.DISCORD_CLIENT_ID,
+                    client_secret: config.DISCORD_CLIENT_SECRET,
+                    redirect_uri: config.DISCORD_REDIRECT_URI,
+                    code: code,
+                    grant_type: "authorization_code",
+                    scope: "identify",
+                },
+            }
+        );
 
-      console.log("Redirecting to home page...");
-      res.redirect("http://localhost:3000/");
-      
+        const discordToken = response.data.access_token;
+
+        console.log("Redirecting to home page...");
+        res.redirect("http://localhost:3000/");
     } catch (error) {
-      console.error("Discord connection error:", error.message);
-      res.status(500).send("Error connecting with Discord");
+        console.error("Discord connection error:", error.message);
+        res.status(500).send("Error connecting with Discord");
     }
-  };
-
-
+};
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");

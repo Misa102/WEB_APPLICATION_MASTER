@@ -10,7 +10,6 @@ export default function authReducers(state = INIT_STATE.auth, action) {
                 response: undefined,
             };
         case getType(authAction.actionLoginSuccess):
-            console.log(action.payload)
             return {
                 ...state,
                 request: undefined,
