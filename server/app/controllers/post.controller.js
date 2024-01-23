@@ -1,4 +1,5 @@
 const db = require("../models");
+const ObjectId = require("mongodb").ObjectId;
 
 const Post = db.post;
 const User = db.user;
@@ -8,7 +9,7 @@ exports.findAllPost = (req, res) => {
     console.log("rest request to find all posts");
     let userId = "";
     let query = req.query;
-    if (query.hasOwnProperty("userId")){
+    if (query.hasOwnProperty("userId")) {
         userId = String(query.userId);
     }
     Post.find()
@@ -16,8 +17,13 @@ exports.findAllPost = (req, res) => {
             let postMap = Object.assign([], post);
             if (post.length > 0) {
                 PostLike.find({ post: { $in: post } }).then((postLike) => {
-                    let convertPost = postMap.map(v => {
-                        let isLike = postLike.filter(pl => (pl.post._id.equals(v.id)) && (pl.user._id.equals(userId))).length > 0;
+                    let convertPost = postMap.map((v) => {
+                        let isLike =
+                            postLike.filter(
+                                (pl) =>
+                                    pl.post._id.equals(v.id) &&
+                                    pl.user._id.equals(userId)
+                            ).length > 0;
                         return {
                             id: v._id,
                             title: v.title,
@@ -25,12 +31,12 @@ exports.findAllPost = (req, res) => {
                             totalLike: v.totalLike,
                             createBy: v.createBy,
                             modifiedAt: v.modifiedAt,
-                            isLike: isLike
-                        }
+                            isLike: isLike,
+                            userId: v.user._id,
+                        };
                     });
                     res.status(200).send(convertPost);
                 });
-                
             } else {
                 res.status(200).send(post);
             }
@@ -56,17 +62,79 @@ exports.save = (req, res) => {
                 post.save()
                     .then((post) => {
                         res.status(201).send({
+                            id: post.id,
                             title: post.title,
                             content: post.content,
                             createBy: post.createBy,
                             modifiedAt: post.modifiedAt,
                             userId: post.user.id,
+                            totalLike: 0,
                         });
                     })
                     .catch((err) => {
                         res.status(500).send({ message: err });
                         return;
                     });
+            }
+        })
+        .catch((err) => {
+            res.status(500).send({ message: err });
+            return;
+        });
+};
+
+exports.delete = (req, res) => {
+    console.log("rest request to delete post");
+    Post.findById(req.body.postId)
+        .then((post) => {
+            if (post.user._id.equals(req.userId)) {
+                Post.deleteOne({ _id: new ObjectId(post.id) })
+                    .then((resultDelete) => {
+                        res.status(200).send();
+                    })
+                    .catch((err) => {
+                        res.status(500).send({
+                            message: err,
+                        });
+                        return;
+                    });
+            } else {
+                res.status(403).send();
+                return;
+            }
+        })
+        .catch((err) => {
+            res.status(500).send({ message: err });
+            return;
+        });
+};
+
+exports.update = (req, res) => {
+    console.log("rest request to update post");
+    Post.findById(req.body.postId)
+        .then((post) => {
+            if (post.user._id.equals(req.userId)) {
+                Post.updateOne(
+                    {
+                        _id: new ObjectId(post.id),
+                    },
+                    {
+                        $set: {
+                            content: req.body.content,
+                        },
+                    }
+                )
+                    .then((updatePost) => {
+                        res.status(200).send();
+                        return;
+                    })
+                    .catch((err) => {
+                        res.status(500).send({ message: err });
+                        return;
+                    });
+            } else {
+                res.status(403).send();
+                return;
             }
         })
         .catch((err) => {

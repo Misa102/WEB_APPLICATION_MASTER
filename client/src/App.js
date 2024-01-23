@@ -13,6 +13,7 @@ import Register from "./pages/Register";
 import HomePage from "./pages/HomePage";
 import About from "./pages/About";
 import QuotesPage from "./pages/QuotesPage";
+import DetailPost from "./components/post/detail";
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                     <Route path="/about" exact element={<About />} />
                     <Route path="/contact" exact element={<Contact />} />
                     <Route path="/register" exact element={<Register />} />
+                    <Route path="/quotes/:id" exact element={<DetailPost />} />
                 </Routes>
                 <Footer />
             </Router>
