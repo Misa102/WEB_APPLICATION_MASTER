@@ -1,0 +1,5 @@
+export const postsState$ = (state) => state.posts.data;
+
+export const postsStateError$ = (state) => state.posts.error;
+
+export const resultDeletePost$ = (state) => state.posts.responseDelete;

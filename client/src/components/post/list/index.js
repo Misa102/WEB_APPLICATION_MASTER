@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../redux/actions";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
     currentPost$,
@@ -8,10 +9,56 @@ import {
     mapTotalLikePost$,
     postsState$,
     resultDeleteLikePost$,
+    resultDeletePost$,
     resultSaveLikePost$,
 } from "../../../redux/selectors";
 import { format } from "date-fns";
 import Icon from "../../icon";
+import authUtils from "../../../utils/auth.util";
+
+function DeletePost({ postId, userId }) {
+    const dispatch = useDispatch();
+    let user = authUtils.getUser();
+    const resultDeletePostSelector = useSelector(resultDeletePost$);
+
+    useEffect(() => {
+        if(resultDeletePostSelector === 200) {
+            dispatch(actions.getPosts.getPostsRequest());
+            dispatch(actions.deletePost.actionDeletePostSuccess(0));
+        }
+    }, [dispatch, resultDeletePostSelector]);
+
+    const onDelete = useCallback(() => {
+        dispatch(actions.deletePost.actionDeletePost({ postId: postId }));
+    });
+
+    if (userId === user.id) {
+        return (
+            <>
+                <div className="dropdown">
+                    <button
+                        className="bg-transparent border-0"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <Icon iconName="more_horiz" />
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li className="dropdown-item d-flex" onClick={onDelete}>
+                            <Icon iconName="delete" />
+                            <span>Delete</span>
+                        </li>
+                        <li className="dropdown-item d-flex">
+                            <Icon iconName="edit" />
+                            <span>Edit</span>
+                        </li>
+                    </ul>
+                </div>
+            </>
+        );
+    }
+}
 
 function LikePost({ postId }) {
     const posts = useSelector(postsState$);
@@ -20,6 +67,8 @@ function LikePost({ postId }) {
     const resultSaveLikePost = useSelector(resultSaveLikePost$);
     const resultDeleteLikePost = useSelector(resultDeleteLikePost$);
     const currentPost = useSelector(currentPost$);
+    const isLogin = authUtils.isLogin();
+    const navigate = useNavigate();
 
     const [disabled, setDisable] = useState(false);
 
@@ -29,15 +78,18 @@ function LikePost({ postId }) {
     let totalLikeList = new Map();
 
     useEffect(() => {
-        if((resultSaveLikePost === 201 || resultDeleteLikePost === 200) && postId === currentPost) {
-            dispatch(actions.deleteLikePostAction.actionDeleteLikePostSuccess(""));
+        if (
+            (resultSaveLikePost === 201 || resultDeleteLikePost === 200) &&
+            postId === currentPost
+        ) {
+            dispatch(
+                actions.deleteLikePostAction.actionDeleteLikePostSuccess("")
+            );
             dispatch(actions.saveLikePostAction.actionSaveLikePostSuccess(""));
             dispatch(actions.currentPostAction.actionSaveCurrentPost(""));
             setDisable(false);
         }
-        
-      }, [dispatch, disabled, resultDeleteLikePost, resultSaveLikePost]);
-    
+    }, [dispatch, disabled, resultDeleteLikePost, resultSaveLikePost]);
 
     useEffect(() => {
         if (posts !== undefined) {
@@ -55,60 +107,74 @@ function LikePost({ postId }) {
     }, []);
 
     const savePostLike = useCallback(() => {
-        setDisable(true);
+        if (!isLogin) {
+            navigate("/auth/login");
+        } else {
+            setDisable(true);
 
-        likeList = new Map();
-        totalLikeList = new Map();
+            likeList = new Map();
+            totalLikeList = new Map();
 
-        mapTotalLikePostSelector.forEach((value, key) => {
-            totalLikeList.set(key, value);
-        });
-        totalLikeList.set(postId, totalLikeList.get(postId) + 1);
-        dispatch(
-            actions.mapTotalLikePostAction.actionMapTotalLikePost(totalLikeList)
-        );
+            mapTotalLikePostSelector.forEach((value, key) => {
+                totalLikeList.set(key, value);
+            });
+            totalLikeList.set(postId, totalLikeList.get(postId) + 1);
+            dispatch(
+                actions.mapTotalLikePostAction.actionMapTotalLikePost(
+                    totalLikeList
+                )
+            );
 
-        mapLikePostSelector.forEach((value, key) => {
-            likeList.set(key, value);
-        });
+            mapLikePostSelector.forEach((value, key) => {
+                likeList.set(key, value);
+            });
 
-        likeList.set(postId, true);
-        dispatch(actions.mapLikePostAction.actionMapLikePost(likeList));
+            likeList.set(postId, true);
+            dispatch(actions.mapLikePostAction.actionMapLikePost(likeList));
 
-        dispatch(actions.currentPostAction.actionSaveCurrentPost(postId));
+            dispatch(actions.currentPostAction.actionSaveCurrentPost(postId));
 
-        dispatch(
-            actions.saveLikePostAction.actionSaveLikePost({ postId: postId })
-        );
+            dispatch(
+                actions.saveLikePostAction.actionSaveLikePost({
+                    postId: postId,
+                })
+            );
+        }
     });
 
     const deletePostLike = useCallback(() => {
-        setDisable(true);
+        if (!isLogin) {
+            navigate("/auth/login");
+        } else {
+            setDisable(true);
 
-        likeList = new Map();
-        totalLikeList = new Map();
+            likeList = new Map();
+            totalLikeList = new Map();
 
-        mapTotalLikePostSelector.forEach((value, key) => {
-            totalLikeList.set(key, value);
-        });
-        totalLikeList.set(postId, totalLikeList.get(postId) - 1);
-        dispatch(
-            actions.mapTotalLikePostAction.actionMapTotalLikePost(totalLikeList)
-        );
+            mapTotalLikePostSelector.forEach((value, key) => {
+                totalLikeList.set(key, value);
+            });
+            totalLikeList.set(postId, totalLikeList.get(postId) - 1);
+            dispatch(
+                actions.mapTotalLikePostAction.actionMapTotalLikePost(
+                    totalLikeList
+                )
+            );
 
-        mapLikePostSelector.forEach((value, key) => {
-            likeList.set(key, value);
-        });
-        likeList.set(postId, false);
+            mapLikePostSelector.forEach((value, key) => {
+                likeList.set(key, value);
+            });
+            likeList.set(postId, false);
 
-        dispatch(actions.mapLikePostAction.actionMapLikePost(likeList));
+            dispatch(actions.mapLikePostAction.actionMapLikePost(likeList));
 
-        dispatch(actions.currentPostAction.actionSaveCurrentPost(postId));
-        dispatch(
-            actions.deleteLikePostAction.actionDeleteLikePost({
-                postId: postId,
-            })
-        );
+            dispatch(actions.currentPostAction.actionSaveCurrentPost(postId));
+            dispatch(
+                actions.deleteLikePostAction.actionDeleteLikePost({
+                    postId: postId,
+                })
+            );
+        }
     });
 
     if (
@@ -121,45 +187,53 @@ function LikePost({ postId }) {
         if (likePostItem) {
             return (
                 <>
-                    <button
-                        className="btn btn-lg"
-                        onClick={deletePostLike}
-                        disabled={disabled}
-                    >
-                        <Icon
-                            iconName="favorite"
-                            color={likePostItem ? "red" : ""}
-                        />
-                    </button>
-                    <div className="mt-1 ms-2">
+                    <dt className="visually-hidden">icon</dt>
+                    <dd className="col-auto px-0">
+                        <button
+                            className="btn btn-lg"
+                            onClick={deletePostLike}
+                            disabled={disabled}
+                        >
+                            <Icon
+                                iconName="favorite"
+                                color={likePostItem ? "red" : ""}
+                            />
+                        </button>
+                    </dd>
+                    <dt className="visually-hidden">total Like</dt>
+                    <dd className="col-auto px-0 mt-2">
                         <p>
                             {totalLikePostItem > 1
                                 ? totalLikePostItem + "likes"
                                 : totalLikePostItem + "like"}
                         </p>
-                    </div>
+                    </dd>
                 </>
             );
         } else {
             return (
                 <>
-                    <button
-                        className="btn btn-lg"
-                        onClick={savePostLike}
-                        disabled={disabled}
-                    >
-                        <Icon
-                            iconName="favorite"
-                            color={likePostItem ? "red" : ""}
-                        />
-                    </button>
-                    <div className="mt-1 ms-2">
+                    <dt className="visually-hidden">icon</dt>
+                    <dd className="col-auto px-0">
+                        <button
+                            className="btn btn-lg"
+                            onClick={savePostLike}
+                            disabled={disabled}
+                        >
+                            <Icon
+                                iconName="favorite"
+                                color={likePostItem ? "red" : ""}
+                            />
+                        </button>
+                    </dd>
+                    <dt className="visually-hidden">total Like</dt>
+                    <dd className="col-auto px-0 mt-2">
                         <p>
                             {totalLikePostItem > 1
                                 ? totalLikePostItem + "likes"
                                 : totalLikePostItem + "like"}
                         </p>
-                    </div>
+                    </dd>
                 </>
             );
         }
@@ -176,36 +250,59 @@ export default function PostList() {
 
     return (
         <>
-            <div style={{ backgroundColor: "#eee" }}>
+            <div
+                style={{ backgroundColor: "#eee" }}
+                className="cursor-pointer"
+                r
+            >
                 <div className="container py-5">
                     <div className="row d-flex h-100 row-cols-2 g-4">
                         {posts.map((post) => (
                             <div className="col col-lg-6 col-md-6">
                                 <figure
-                                    className="bg-white p-3 rounded h-100"
+                                    className="bg-white p-3 rounded h-100 d-flex flex-column justify-content-between"
                                     style={{
                                         borderLeft: ".25rem solid #a34e78;",
                                     }}
                                 >
-                                    <blockquote className="blockquote pb-2">
-                                        <p>{post.content}</p>
+                                    <div className="d-flex">
+                                        <Link
+                                            className="blockquote pb-2 text-decoration-none color-unset flex-grow-1"
+                                            to={"/quotes/" + post.id}
+                                        >
+                                            <p>{post.content}</p>
+                                        </Link>
+                                        <DeletePost
+                                            postId={post.id}
+                                            userId={post.userId}
+                                        />
+                                    </div>
 
-                                        <div className="d-flex">
-                                            <LikePost postId={post.id} />
+                                    <div>
+                                        <hr />
+                                        <div className="row row-cols-auto d-flex justify-content-between align-items-baseline">
+                                            <blockquote className="font-italic col">
+                                                {post.createBy}
+                                            </blockquote>
+                                            <div className="d-flex col">
+                                                <dl className="row px-2">
+                                                    <LikePost
+                                                        postId={post.id}
+                                                    />
+                                                </dl>
+                                            </div>
+                                            <div className="col">
+                                                <Icon iconName="share"></Icon>
+                                            </div>
+                                            <blockquote className="blockquote pb-2 col">
+                                                <p>
+                                                    {format(
+                                                        post.modifiedAt,
+                                                        "yyyy-MM-dd"
+                                                    )}
+                                                </p>
+                                            </blockquote>
                                         </div>
-                                    </blockquote>
-                                    <div className="d-flex justify-content-between">
-                                        <blockquote className="font-italic">
-                                            {post.createBy}
-                                        </blockquote>
-                                        <blockquote className="blockquote pb-2">
-                                            <p>
-                                                {format(
-                                                    post.modifiedAt,
-                                                    "yyyy-MM-dd"
-                                                )}
-                                            </p>
-                                        </blockquote>
                                     </div>
                                 </figure>
                             </div>
