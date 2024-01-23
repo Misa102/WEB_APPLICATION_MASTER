@@ -16,13 +16,13 @@ import { format } from "date-fns";
 import Icon from "../../icon";
 import authUtils from "../../../utils/auth.util";
 
-function DeletePost({ postId, userId }) {
+function Action({ postId, userId }) {
     const dispatch = useDispatch();
     let user = authUtils.getUser();
     const resultDeletePostSelector = useSelector(resultDeletePost$);
 
     useEffect(() => {
-        if(resultDeletePostSelector === 200) {
+        if (resultDeletePostSelector === 200) {
             dispatch(actions.getPosts.getPostsRequest());
             dispatch(actions.deletePost.actionDeletePostSuccess(0));
         }
@@ -49,9 +49,14 @@ function DeletePost({ postId, userId }) {
                             <Icon iconName="delete" />
                             <span>Delete</span>
                         </li>
-                        <li className="dropdown-item d-flex">
-                            <Icon iconName="edit" />
-                            <span>Edit</span>
+                        <li className="dropdown-item">
+                            <Link to={"/quotes/" + postId} className="text-decoration-none color-unset">
+                                <div className="d-flex">
+                                    <Icon iconName="edit" />
+                                    <span>Edit</span>
+                                </div>
+                            </Link>
+                            
                         </li>
                     </ul>
                 </div>
@@ -266,13 +271,10 @@ export default function PostList() {
                                     }}
                                 >
                                     <div className="d-flex">
-                                        <Link
-                                            className="blockquote pb-2 text-decoration-none color-unset flex-grow-1"
-                                            to={"/quotes/" + post.id}
-                                        >
+                                        <div className="blockquote pb-2 flex-grow-1">
                                             <p>{post.content}</p>
-                                        </Link>
-                                        <DeletePost
+                                        </div>
+                                        <Action
                                             postId={post.id}
                                             userId={post.userId}
                                         />
