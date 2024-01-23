@@ -19,7 +19,11 @@ export const INIT_STATE = {
         requestDelete: {},
         error: {},
         response: {},
-        mapLikePost: new Map()
+        responseSavePost: "",
+        responseDeletePost: "",
+        mapLikePost: new Map(),
+        mapTotalLikePost: new Map(),
+        currentPost: ""
     }
 };
 

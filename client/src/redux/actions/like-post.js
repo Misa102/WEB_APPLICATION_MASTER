@@ -19,3 +19,11 @@ export const deleteLikePostAction = createActions({
 export const mapLikePostAction = createActions({
     actionMapLikePost: (payload) => payload
 });
+
+export const mapTotalLikePostAction = createActions({
+    actionMapTotalLikePost: (payload) => payload
+});
+
+export const currentPostAction = createActions({
+    actionSaveCurrentPost: (payload) => payload
+});

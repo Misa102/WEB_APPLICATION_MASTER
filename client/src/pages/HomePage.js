@@ -8,9 +8,9 @@ import authUtils from "../utils/auth.util";
 
 function CheckLoginSavePost() {
     const isLogin = authUtils.isLogin();
-    // if (isLogin) {
+    if (isLogin) {
         return <SavePost />;
-    // }
+    }
 }
 
 export default function HomePage() {
