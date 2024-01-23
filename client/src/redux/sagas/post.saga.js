@@ -2,7 +2,6 @@ import { takeLatest, call, put } from "redux-saga/effects";
 import * as actions from "../actions";
 import * as api from "../../api";
 
-// generator fct quand il y a un action a lieu
 function* fetchPostsSaga(action) {
     try {
         const posts = yield call(api.fetchPosts);
@@ -23,21 +22,28 @@ function* createPostSaga(action) {
 
 function* updatePostSaga(action) {
     try {
-        console.log("updatePostSaga", { action });
         const updatedPost = yield call(api.updatePost, action.payload);
-        console.log("[updatePostSaga - post]", updatedPost);
-        //trigger action
-        yield put(actions.updatePost.updatePostSuccess(updatedPost.data));
+        yield put(actions.updatePost.actionUpdatePostSuccess(updatedPost.data));
     } catch (err) {
-        console.error(err);
-        yield put(actions.updatePost.updatePostFailure(err));
+        yield put(actions.updatePost.actionUpdatePostFailure(err));
+    }
+}
+
+function* deletePostSaga(action) {
+    try {
+        const deletePost = yield call(api.deletePost, action.payload);
+        yield put(actions.deletePost.actionDeletePostSuccess(deletePost.status));
+    } catch (err) {
+        console.log(err)
+        yield put(actions.deletePost.actionDeletePostPostFailure(err.response.status));
     }
 }
 
 function* postSaga() {
     yield takeLatest(actions.getPosts.getPostsRequest, fetchPostsSaga);
     yield takeLatest(actions.createPost.createPostRequest, createPostSaga);
-    yield takeLatest(actions.updatePost.updatePostRequest, updatePostSaga);
+    yield takeLatest(actions.updatePost.actionUpdatePost, updatePostSaga);
+    yield takeLatest(actions.deletePost.actionDeletePost, deletePostSaga);
 }
 
 export default postSaga;

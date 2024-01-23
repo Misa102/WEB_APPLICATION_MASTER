@@ -6,7 +6,7 @@ import {
     mapTotalLikePostAction,
     currentPostAction,
     getType,
-} from "../actions/like-post";
+} from "../actions/like-post.action";
 
 export default function likePostReducer(state = INIT_STATE.likePost, action) {
     switch (action.type) {

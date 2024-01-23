@@ -1,5 +1,5 @@
 import { INIT_STATE } from "../../constant";
-import { authAction, getType } from "../actions/auth";
+import { authAction, getType } from "../actions/auth.action";
 
 export default function authReducers(state = INIT_STATE.auth, action) {
     switch (action.type) {
