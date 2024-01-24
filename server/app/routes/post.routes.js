@@ -17,4 +17,6 @@ module.exports = function (app) {
     app.delete("/api/posts", [authJwt.verifyToken], postController.delete);
 
     app.put("/api/posts", [authJwt.verifyToken], postController.update);
+
+    app.get("/api/posts/:postId", postController.getDetailPost);
 };

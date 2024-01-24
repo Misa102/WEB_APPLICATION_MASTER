@@ -23,9 +23,9 @@ function* createPostSaga(action) {
 function* updatePostSaga(action) {
     try {
         const updatedPost = yield call(api.updatePost, action.payload);
-        yield put(actions.updatePost.actionUpdatePostSuccess(updatedPost.data));
+        yield put(actions.updatePost.actionUpdatePostSuccess(updatedPost.status));
     } catch (err) {
-        yield put(actions.updatePost.actionUpdatePostFailure(err));
+        yield put(actions.updatePost.actionUpdatePostFailure(err.response.status));
     }
 }
 
@@ -39,11 +39,21 @@ function* deletePostSaga(action) {
     }
 }
 
+function* getDetailPostSaga(action) {
+    try {
+        const detailPost = yield call(api.getDetailPost, action.payload);
+        yield put(actions.detailPost.actionGetDetailPostSuccess(detailPost.data));
+    } catch (err) {
+        yield put(actions.detailPost.actionGetDetailPostFailure(err));
+    }
+}
+
 function* postSaga() {
     yield takeLatest(actions.getPosts.getPostsRequest, fetchPostsSaga);
     yield takeLatest(actions.createPost.createPostRequest, createPostSaga);
     yield takeLatest(actions.updatePost.actionUpdatePost, updatePostSaga);
     yield takeLatest(actions.deletePost.actionDeletePost, deletePostSaga);
+    yield takeLatest(actions.detailPost.actionGetDetailPost, getDetailPostSaga);
 }
 
 export default postSaga;

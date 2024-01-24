@@ -28,3 +28,9 @@ export const deletePost = createActions({
     actionDeletePostSuccess: (payload) => payload,
     actionDeletePostPostFailure: (err) => err,
 });
+
+export const detailPost = createActions({
+    actionGetDetailPost : (payload) => payload,
+    actionGetDetailPostSuccess: (payload) => payload,
+    actionGetDetailPostFailure: (err) => err,
+});

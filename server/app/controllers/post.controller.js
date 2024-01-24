@@ -142,3 +142,19 @@ exports.update = (req, res) => {
             return;
         });
 };
+
+exports.getDetailPost = (req, res) => {
+    console.log("rest request to get details post");
+    let postId = "";
+    let params = req.params;
+    if (params.hasOwnProperty("postId")) {
+        postId = String(params.postId);
+    }
+
+    Post.findOne({_id: new ObjectId(postId)}).then(post => {
+        res.status(200).send(post);
+    }).catch((err) => {
+        res.status(500).send({ message: err });
+        return;
+    });
+};

@@ -5,6 +5,7 @@ import {
     deletePost,
     getPosts,
     getType,
+    detailPost,
 } from "../actions";
 
 export default function postsReducers(state = INIT_STATE.posts, action) {
@@ -45,6 +46,16 @@ export default function postsReducers(state = INIT_STATE.posts, action) {
                 ...state,
                 requestUpdate: action.payload,
             };
+        case getType(updatePost.actionUpdatePostSuccess):
+            return {
+                ...state,
+                responseUpdate: action.payload,
+            };
+        case getType(updatePost.actionUpdatePostFailure):
+            return {
+                ...state,
+                responseUpdate: action.payload,
+            };
         case getType(deletePost.actionDeletePost):
             return {
                 ...state,
@@ -59,6 +70,18 @@ export default function postsReducers(state = INIT_STATE.posts, action) {
             return {
                 ...state,
                 responseDelete: action.payload,
+            };
+
+        case getType(detailPost.actionGetDetailPost):
+            return {
+                ...state,
+                requestGetDetail: action.payload,
+            };
+
+        case getType(detailPost.actionGetDetailPostSuccess):
+            return {
+                ...state,
+                responseDetail: action.payload,
             };
 
         default:

@@ -6,9 +6,10 @@ export const INIT_STATE = {
         error: undefined,
         requestDelete: {},
         requestUpdate: {},
+        requestGetDetail: "",
         responseDelete: 0,
         responseUpdate: {},
-        errorUpdate: {}
+        responseDetail: {}
     },
     modal: {
         isShow: true,

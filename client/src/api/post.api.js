@@ -15,3 +15,6 @@ export const updatePost = (payload) =>
 
 export const deletePost = (payload) =>
     axios.delete(`${API_URL}/posts`, { data: payload, headers: headers });
+
+export const getDetailPost = (payload) =>
+    axios.get(`${API_URL}/posts/${payload}`);

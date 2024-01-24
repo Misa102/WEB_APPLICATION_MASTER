@@ -1,4 +1,18 @@
-export * from './modal.selector';
-export * from './auth.selector';
-export * from './like-post.selector';
-export * from './post.selector';
+export { modalState$ } from "./modal.selector";
+export {
+    authState$,
+    authStateSuccess$,
+    authStateFailure$,
+} from "./auth.selector";
+export {
+    mapLikePost$,
+    mapTotalLikePost$,
+    currentPost$,
+    resultDeleteLikePost$,
+    resultSaveLikePost$,
+} from "./like-post.selector";
+export {
+    postsState$,
+    postsStateError$,
+    resultDeletePost$,
+} from "./post.selector";
