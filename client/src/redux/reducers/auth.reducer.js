@@ -1,5 +1,5 @@
 import { INIT_STATE } from "../../constant";
-import { authAction, getType } from "../actions/auth.action";
+import { authAction, registerAction, getType } from "../actions/auth.action";
 
 export default function authReducers(state = INIT_STATE.auth, action) {
     switch (action.type) {
@@ -7,20 +7,32 @@ export default function authReducers(state = INIT_STATE.auth, action) {
             return {
                 ...state,
                 request: action.payload,
-                response: undefined,
             };
         case getType(authAction.actionLoginSuccess):
             return {
                 ...state,
-                request: undefined,
                 response: action.payload,
             };
         case getType(authAction.actionLoginFailure):
             return {
                 ...state,
-                error: action.payload,
-                request: undefined,
-                response: undefined,
+                error: action.payload
+            };
+
+        case getType(registerAction.actionRegister):
+            return {
+                ...state,
+                requestRegister: action.payload,
+            };
+        case getType(registerAction.actionRegisterSuccess):
+            return {
+                ...state,
+                responseRegister: action.payload,
+            };
+        case getType(registerAction.actionRegisterFailure):
+            return {
+                ...state,
+                responseRegister: action.payload,
             };
         default:
             return state;

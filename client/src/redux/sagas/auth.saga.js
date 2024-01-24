@@ -17,8 +17,22 @@ function* login(action) {
     }
 }
 
+function* registerSaga(action) {
+    try {
+        const resultRegister = yield call(api.register, action.payload);
+        yield put(actions.registerAction.actionRegisterSuccess(resultRegister.status));
+    } catch (err) {
+        yield put(
+            actions.registerAction.actionRegisterFailure({
+                message: err.response.status
+            })
+        );
+    }
+}
+
 function* authSaga() {
     yield takeLatest(actions.authAction.actionLogin, login);
+    yield takeLatest(actions.registerAction.actionRegister, registerSaga);
 }
 
 export default authSaga;

@@ -9,3 +9,9 @@ export const authAction = createActions({
     actionLoginSuccess: (payload) => payload,
     actionLoginFailure: (err) => err,
 });
+
+export const registerAction = createActions({
+    actionRegister: (payload) => payload,
+    actionRegisterSuccess: (payload) => payload,
+    actionRegisterFailure: (err) => err,
+});

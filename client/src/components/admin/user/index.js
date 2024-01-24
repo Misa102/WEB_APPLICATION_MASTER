@@ -35,6 +35,8 @@ export default function ManagementUser() {
             resultUpdateStatusSelector !== 0 &&
             resultUpdateStatusSelector !== 200
         ) {
+
+            dispatch(actions.updateStatusUser.actionUpdateStatusUserSuccess(0));
             setMessage("update failed");
             setTimeout(() => {
                 setMessage("");
