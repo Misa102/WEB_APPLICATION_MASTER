@@ -8,7 +8,14 @@ export {
     mapLikePostAction,
     mapTotalLikePostAction,
     deleteLikePostAction,
-    currentPostAction
+    currentPostAction,
 } from "./like-post.action";
-export { createPost, getPosts, updatePost, deletePost, detailPost } from "./post.action";
+export {
+    createPost,
+    getPosts,
+    updatePost,
+    deletePost,
+    detailPost,
+} from "./post.action";
 export { modal } from "./modal.action";
+export { getAllUser, updateStatusUser } from "./user.action";

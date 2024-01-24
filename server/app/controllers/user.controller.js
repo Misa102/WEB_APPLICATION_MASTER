@@ -6,7 +6,8 @@ const User = db.user;
 exports.getListUser = (req, res) => {
     console.log("rest request to find all user");
 
-    User.find()
+    User.find({ _id: { $ne: new ObjectId(req.userId) } })
+        .populate("roles", "-__v")
         .then((users) => {
             res.status(200).send(users);
         })
@@ -25,7 +26,7 @@ exports.updateStatus = (req, res) => {
         },
         {
             $set: {
-                status: status
+                status: status,
             },
         }
     )

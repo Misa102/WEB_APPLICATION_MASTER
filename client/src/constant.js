@@ -30,6 +30,11 @@ export const INIT_STATE = {
         mapLikePost: new Map(),
         mapTotalLikePost: new Map(),
         currentPost: ""
+    },
+    user: {
+        requestUpdate: {},
+        responseGetAll: [],
+        responseUpdate: 0
     }
 };
 

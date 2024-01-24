@@ -1,7 +1,15 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
 
 .color-unset {
     color: unset;
+}
+
+.table td, .table th {
+    text-wrap: nowrap;
 }

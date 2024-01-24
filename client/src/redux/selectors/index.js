@@ -16,3 +16,5 @@ export {
     postsStateError$,
     resultDeletePost$,
 } from "./post.selector";
+
+export { resultUpdateStatusUser$, listUser$ } from "./user.selector";
