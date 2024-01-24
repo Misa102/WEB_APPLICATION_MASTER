@@ -1,15 +1,18 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { authAction } from "../redux/actions";
 import { authState$, authStateFailure$ } from "../redux/selectors";
-
-import DiscordButton from './DiscordButton';
+import { Link } from "react-router-dom";
+import DiscordButton from "./DiscordButton";
 
 function LoginError() {
     const dispatch = useDispatch();
     const authSelector = useSelector(authStateFailure$);
-    if(authSelector !== null && authSelector !== undefined) {
-        const message = (authSelector.message === undefined || authSelector.message === null) ? "" : authSelector.message;
+    if (authSelector !== null && authSelector !== undefined) {
+        const message =
+            authSelector.message === undefined || authSelector.message === null
+                ? ""
+                : authSelector.message;
         if (message !== "") {
             setTimeout(() => {
                 dispatch(authAction.actionLoginFailure({ error: "" }));
@@ -21,7 +24,6 @@ function LoginError() {
             );
         }
     }
-    
 }
 
 export default function Login() {
@@ -33,15 +35,16 @@ export default function Login() {
     const dispatch = useDispatch();
 
     const auth = useSelector(authState$);
-    if(auth.response !== undefined && auth.response.id !== undefined) {
-        dispatch(authAction.actionLoginSuccess(undefined));
-        setTimeout(() => {
-            window.location.href = "/";
-        }, 400);
-    }
+    useEffect(() => {
+        if (auth.response !== undefined && auth.response.id !== undefined) {
+            dispatch(authAction.actionLoginSuccess(undefined));
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 400);
+        }
+    }, [dispatch, auth]);
 
     const onSubmit = useCallback(() => {
-        dispatch(authAction.actionLoginSuccess(undefined));
         dispatch(authAction.actionLogin(request));
     }, [request, dispatch]);
 
@@ -142,9 +145,7 @@ export default function Login() {
                                                 onClick={onSubmit}
                                             >
                                                 Log In
-                                               
                                             </button>
-                                            
                                         </div>
                                     </div>
 
@@ -155,12 +156,13 @@ export default function Login() {
                                     <div className="col-12">
                                         <hr className="mt-5 mb-4 border-secondary-subtle" />
                                         <div className="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-center">
-                                            <a
-                                                href="/register"
+                                            <Link
+                                                to="/auth/register"
                                                 className="link-secondary text-decoration-none"
                                             >
                                                 Create new account
-                                            </a>
+                                            </Link>
+
                                             <a
                                                 href="#!"
                                                 className="link-secondary text-decoration-none"

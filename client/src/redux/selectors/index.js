@@ -3,6 +3,7 @@ export {
     authState$,
     authStateSuccess$,
     authStateFailure$,
+    resultRegister$
 } from "./auth.selector";
 export {
     mapLikePost$,

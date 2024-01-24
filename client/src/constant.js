@@ -9,16 +9,18 @@ export const INIT_STATE = {
         requestGetDetail: "",
         responseDelete: 0,
         responseUpdate: 0,
-        responseDetail: {}
+        responseDetail: {},
     },
     modal: {
         isShow: true,
-        id: ""
+        id: "",
     },
     auth: {
         request: {},
         error: {},
-        response: {}
+        response: {},
+        requestRegister: {},
+        responseRegister: 0,
     },
     likePost: {
         requestSave: {},
@@ -29,13 +31,13 @@ export const INIT_STATE = {
         responseDeletePost: "",
         mapLikePost: new Map(),
         mapTotalLikePost: new Map(),
-        currentPost: ""
+        currentPost: "",
     },
     user: {
         requestUpdate: {},
         responseGetAll: [],
-        responseUpdate: 0
-    }
+        responseUpdate: 0,
+    },
 };
 
 export const API_URL = "http://localhost:5000/api";

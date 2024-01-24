@@ -2,7 +2,7 @@ export const getType = (reduxAction) => {
     return reduxAction().type;
 };
 
-export { authAction } from "./auth.action";
+export { authAction, registerAction } from "./auth.action";
 export {
     saveLikePostAction,
     mapLikePostAction,

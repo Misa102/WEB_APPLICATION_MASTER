@@ -53,7 +53,7 @@ function StateLogin() {
             <div className="d-flex align-items-lg-center mt-3 mt-lg-0">
                 <Link
                     className="btn btn-sm btn-primary w-full w-lg-auto"
-                    to="/register"
+                    to="/auth/register"
                 >
                     Register
                 </Link>

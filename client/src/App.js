@@ -9,7 +9,7 @@ import Navbar from "./layout/Navbar";
 import Footer from "./layout/Footer";
 import Login from "./login/login";
 import Contact from "./pages/Contact";
-import Register from "./pages/Register";
+import Register from "./components/register";
 import HomePage from "./pages/HomePage";
 import About from "./pages/About";
 import QuotesPage from "./pages/QuotesPage";
@@ -30,7 +30,7 @@ function App() {
                         <Route path="/quotes" exact element={<QuotesPage />} />
                         <Route path="/about" exact element={<About />} />
                         <Route path="/contact" exact element={<Contact />} />
-                        <Route path="/register" exact element={<Register />} />
+                        <Route path="/auth/register" exact element={<Register />} />
                         <Route
                             path="/admin/users"
                             exact
