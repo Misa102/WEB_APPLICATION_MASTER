@@ -14,9 +14,9 @@ module.exports = function (app) {
 
     app.post("/api/posts", [authJwt.verifyToken], postController.save);
 
-    app.delete("/api/posts", [authJwt.verifyToken], postController.delete);
+    app.delete("/api/posts", [authJwt.verifyToken, authJwt.haveAdminRole], postController.delete);
 
-    app.put("/api/posts", [authJwt.verifyToken], postController.update);
+    app.put("/api/posts", [authJwt.verifyToken, authJwt.haveAdminRole], postController.update);
 
     app.get("/api/posts/:postId", postController.getDetailPost);
 };

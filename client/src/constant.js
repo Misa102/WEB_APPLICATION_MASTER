@@ -8,7 +8,7 @@ export const INIT_STATE = {
         requestUpdate: {},
         requestGetDetail: "",
         responseDelete: 0,
-        responseUpdate: {},
+        responseUpdate: 0,
         responseDetail: {}
     },
     modal: {
