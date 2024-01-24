@@ -14,7 +14,7 @@ import {
 } from "../../../redux/selectors";
 import { format } from "date-fns";
 import Icon from "../../icon";
-import authUtils from "../../../utils/auth.util";
+import authUtils, { isAdmin } from "../../../utils/auth.util";
 import validationUtils from "../../../utils/validation.util";
 
 function Action({ postId, userId }) {
@@ -34,7 +34,7 @@ function Action({ postId, userId }) {
     });
 
     if(validationUtils.isNotNullAndNotUndefined(user)) {
-        if (userId === user.id) {
+        if (userId === user.id || isAdmin()) {
             return (
                 <>
                     <div className="dropdown">

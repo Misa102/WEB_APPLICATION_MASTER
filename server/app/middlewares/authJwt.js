@@ -22,6 +22,33 @@ verifyToken = (req, res, next) => {
     });
 };
 
+haveAdminRole = (req, res, next) => {
+    User.findById(req.userId)
+        .then((user) => {
+            Authority.find({ _id: { $in: user.roles } })
+                .then((authorities) => {
+                    for (let i = 0; i < authorities.length; i++) {
+                        if (authorities[i].name === "admin") {
+                            req.isAdmin = true;
+                            next();
+                            return;
+                        }
+                    }
+
+                    req.isAdmin = false;
+                    return;
+                })
+                .catch((err) => {
+                    res.status(500).send({ message: err });
+                    return;
+                });
+        })
+        .catch((err) => {
+            res.status(500).send({ message: err });
+            return;
+        });
+};
+
 isAdmin = (req, res, next) => {
     User.findById(req.userId)
         .then((user) => {
@@ -51,5 +78,6 @@ isAdmin = (req, res, next) => {
 const authJwt = {
     verifyToken,
     isAdmin,
+    haveAdminRole
 };
 module.exports = authJwt;

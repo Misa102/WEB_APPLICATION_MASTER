@@ -8,7 +8,7 @@ export const INIT_STATE = {
         requestUpdate: {},
         requestGetDetail: "",
         responseDelete: 0,
-        responseUpdate: {},
+        responseUpdate: 0,
         responseDetail: {}
     },
     modal: {
@@ -30,6 +30,11 @@ export const INIT_STATE = {
         mapLikePost: new Map(),
         mapTotalLikePost: new Map(),
         currentPost: ""
+    },
+    user: {
+        requestUpdate: {},
+        responseGetAll: [],
+        responseUpdate: 0
     }
 };
 

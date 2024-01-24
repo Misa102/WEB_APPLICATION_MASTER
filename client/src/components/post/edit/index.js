@@ -35,13 +35,17 @@ export default function EditPost() {
             setMessage("Update successfully!");
             dispatch(updatePost.actionUpdatePostSuccess(0));
             setTimeout(() => {
+                setMessage("");
                 navigate("/");
             }, 1000);
         } else if (
             resultUpdatePostSelector !== 0 &&
-            resultGetDetailPostSelector !== 200
+            resultUpdatePostSelector !== 200
         ) {
             setMessage("Update failed!");
+            setTimeout(() => {
+                setMessage("");
+            }, 1000);
         }
     }, [dispatch, resultUpdatePostSelector]);
 

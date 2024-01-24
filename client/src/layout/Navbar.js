@@ -1,6 +1,19 @@
 import { Link } from "react-router-dom";
 import authUtils from "../utils/auth.util";
 
+function AdminPage() {
+    const isAdmin = authUtils.isAdmin();
+    if (isAdmin) {
+        return (
+            <>
+                <Link className="nav-item nav-link" to="/admin/users">
+                    User management
+                </Link>
+            </>
+        );
+    }
+}
+
 function StateLogin() {
     const isLogin = authUtils.isLogin();
     const user = authUtils.getUser();
@@ -13,16 +26,22 @@ function StateLogin() {
     }
 
     if (isLogin) {
-        return <>
-            <div className="navbar-nav ms-lg-4">
-                <span className="nav-item nav-link">Welcome, {user.username}</span>
-            </div>
-            <div className="navbar-nav ms-lg-4" role="button" onClick={onSignOut}>
-                <span className="nav-item nav-link">
-                    Sign out
-                </span>
-            </div>
-        </>;
+        return (
+            <>
+                <div className="navbar-nav ms-lg-4">
+                    <span className="nav-item nav-link">
+                        Welcome, {user.username}
+                    </span>
+                </div>
+                <div
+                    className="navbar-nav ms-lg-4"
+                    role="button"
+                    onClick={onSignOut}
+                >
+                    <span className="nav-item nav-link">Sign out</span>
+                </div>
+            </>
+        );
     }
     return (
         <>
@@ -86,10 +105,11 @@ function Navbar() {
                             <Link className="nav-item nav-link" to="/about">
                                 About
                             </Link>
-                            
+
                             <Link className="nav-item nav-link" to="/contact">
                                 Contact
                             </Link>
+                            <AdminPage />
                         </div>
                         <StateLogin />
                     </div>

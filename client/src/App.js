@@ -15,6 +15,8 @@ import About from "./pages/About";
 import QuotesPage from "./pages/QuotesPage";
 import EditPost from "./components/post/edit";
 import Toast from "./components/toast";
+import ManagementUser from "./components/admin/user";
+import PrivateRoute from "./components/private-route";
 
 function App() {
     return (
@@ -29,6 +31,15 @@ function App() {
                         <Route path="/about" exact element={<About />} />
                         <Route path="/contact" exact element={<Contact />} />
                         <Route path="/register" exact element={<Register />} />
+                        <Route
+                            path="/admin/users"
+                            exact
+                            element={
+                                <PrivateRoute>
+                                    <ManagementUser />
+                                </PrivateRoute>
+                            }
+                        />
                         <Route
                             path="/quotes/:id"
                             exact

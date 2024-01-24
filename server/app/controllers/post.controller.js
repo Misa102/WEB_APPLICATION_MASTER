@@ -87,7 +87,7 @@ exports.delete = (req, res) => {
     console.log("rest request to delete post");
     Post.findById(req.body.postId)
         .then((post) => {
-            if (post.user._id.equals(req.userId)) {
+            if (post.user._id.equals(req.userId) || req.isAdmin) {
                 Post.deleteOne({ _id: new ObjectId(post.id) })
                     .then((resultDelete) => {
                         res.status(200).send();
@@ -113,7 +113,7 @@ exports.update = (req, res) => {
     console.log("rest request to update post");
     Post.findById(req.body.postId)
         .then((post) => {
-            if (post.user._id.equals(req.userId)) {
+            if (post.user._id.equals(req.userId) || req.isAdmin) {
                 Post.updateOne(
                     {
                         _id: new ObjectId(post.id),
