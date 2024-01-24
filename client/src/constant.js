@@ -9,7 +9,6 @@ export const INIT_STATE = {
         requestGetDetail: "",
         responseDelete: 0,
         responseUpdate: {},
-        errorUpdate: {},
         responseDetail: {}
     },
     modal: {

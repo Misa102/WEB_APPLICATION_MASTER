@@ -23,9 +23,9 @@ function* createPostSaga(action) {
 function* updatePostSaga(action) {
     try {
         const updatedPost = yield call(api.updatePost, action.payload);
-        yield put(actions.updatePost.actionUpdatePostSuccess(updatedPost.data));
+        yield put(actions.updatePost.actionUpdatePostSuccess(updatedPost.status));
     } catch (err) {
-        yield put(actions.updatePost.actionUpdatePostFailure(err));
+        yield put(actions.updatePost.actionUpdatePostFailure(err.response.status));
     }
 }
 

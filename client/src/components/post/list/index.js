@@ -15,6 +15,7 @@ import {
 import { format } from "date-fns";
 import Icon from "../../icon";
 import authUtils from "../../../utils/auth.util";
+import validationUtils from "../../../utils/validation.util";
 
 function Action({ postId, userId }) {
     const dispatch = useDispatch();
@@ -32,37 +33,40 @@ function Action({ postId, userId }) {
         dispatch(actions.deletePost.actionDeletePost({ postId: postId }));
     });
 
-    if (userId === user.id) {
-        return (
-            <>
-                <div className="dropdown">
-                    <button
-                        className="bg-transparent border-0"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <Icon iconName="more_horiz" />
-                    </button>
-
-                    <ul class="dropdown-menu">
-                        <li className="dropdown-item d-flex" onClick={onDelete}>
-                            <Icon iconName="delete" />
-                            <span>Delete</span>
-                        </li>
-                        <li className="dropdown-item">
-                            <Link to={"/quotes/" + postId} className="text-decoration-none color-unset">
-                                <div className="d-flex">
-                                    <Icon iconName="edit" />
-                                    <span>Edit</span>
-                                </div>
-                            </Link>
-                            
-                        </li>
-                    </ul>
-                </div>
-            </>
-        );
+    if(validationUtils.isNotNullAndNotUndefined(user)) {
+        if (userId === user.id) {
+            return (
+                <>
+                    <div className="dropdown">
+                        <button
+                            className="bg-transparent border-0"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            <Icon iconName="more_horiz" />
+                        </button>
+    
+                        <ul class="dropdown-menu">
+                            <li className="dropdown-item d-flex" onClick={onDelete}>
+                                <Icon iconName="delete" />
+                                <span>Delete</span>
+                            </li>
+                            <li className="dropdown-item">
+                                <Link to={"/quotes/" + postId} className="text-decoration-none color-unset">
+                                    <div className="d-flex">
+                                        <Icon iconName="edit" />
+                                        <span>Edit</span>
+                                    </div>
+                                </Link>
+                                
+                            </li>
+                        </ul>
+                    </div>
+                </>
+            );
+        }
     }
+   
 }
 
 function LikePost({ postId }) {

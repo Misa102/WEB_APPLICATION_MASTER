@@ -14,25 +14,33 @@ import HomePage from "./pages/HomePage";
 import About from "./pages/About";
 import QuotesPage from "./pages/QuotesPage";
 import EditPost from "./components/post/edit";
+import Toast from "./components/toast";
 
 function App() {
     return (
-        <div className="App">
-            <Router>
-                <Navbar />
-                <Routes>
-                    <Route path="/" exact element={<HomePage />} />
-                    <Route path="/auth/login" exact element={<Login />} />
-                    <Route path="/quotes" exact element={<QuotesPage />} />
-                    <Route path="/about" exact element={<About />} />
-                    <Route path="/contact" exact element={<Contact />} />
-                    <Route path="/register" exact element={<Register />} />
-                    <Route path="/quotes/:id" exact element={<EditPost />} />
-                </Routes>
-                <Footer />
-            </Router>
-            <Outlet />
-        </div>
+        <>
+            <div className="App">
+                <Router>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/" exact element={<HomePage />} />
+                        <Route path="/auth/login" exact element={<Login />} />
+                        <Route path="/quotes" exact element={<QuotesPage />} />
+                        <Route path="/about" exact element={<About />} />
+                        <Route path="/contact" exact element={<Contact />} />
+                        <Route path="/register" exact element={<Register />} />
+                        <Route
+                            path="/quotes/:id"
+                            exact
+                            element={<EditPost />}
+                        />
+                    </Routes>
+                    <Footer />
+                </Router>
+                <Toast />
+                <Outlet />
+            </div>
+        </>
     );
 }
 

@@ -46,6 +46,16 @@ export default function postsReducers(state = INIT_STATE.posts, action) {
                 ...state,
                 requestUpdate: action.payload,
             };
+        case getType(updatePost.actionUpdatePostSuccess):
+            return {
+                ...state,
+                responseUpdate: action.payload,
+            };
+        case getType(updatePost.actionUpdatePostFailure):
+            return {
+                ...state,
+                responseUpdate: action.payload,
+            };
         case getType(deletePost.actionDeletePost):
             return {
                 ...state,
