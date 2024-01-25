@@ -29,7 +29,7 @@ function Action({ postId, userId }) {
 
     useEffect(() => {
         if (resultDeletePostSelector === 200) {
-            dispatch(actions.getPosts.getPostsRequest());
+            dispatch(actions.getPosts.getPostsRequest({searchValue: ""}));
             dispatch(actions.deletePost.actionDeletePostSuccess(0));
         }
     }, [dispatch, resultDeletePostSelector]);
