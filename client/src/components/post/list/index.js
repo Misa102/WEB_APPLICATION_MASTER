@@ -33,7 +33,7 @@ function Action({ postId, userId }) {
         dispatch(actions.deletePost.actionDeletePost({ postId: postId }));
     });
 
-    if(validationUtils.isNotNullAndNotUndefined(user)) {
+    if (validationUtils.isNotNullAndNotUndefined(user)) {
         if (userId === user.id || isAdmin()) {
             return (
                 <>
@@ -45,20 +45,25 @@ function Action({ postId, userId }) {
                         >
                             <Icon iconName="more_horiz" />
                         </button>
-    
+
                         <ul class="dropdown-menu">
-                            <li className="dropdown-item d-flex" onClick={onDelete}>
+                            <li
+                                className="dropdown-item d-flex"
+                                onClick={onDelete}
+                            >
                                 <Icon iconName="delete" />
                                 <span>Delete</span>
                             </li>
                             <li className="dropdown-item">
-                                <Link to={"/quotes/" + postId} className="text-decoration-none color-unset">
+                                <Link
+                                    to={"/quotes/" + postId}
+                                    className="text-decoration-none color-unset"
+                                >
                                     <div className="d-flex">
                                         <Icon iconName="edit" />
                                         <span>Edit</span>
                                     </div>
                                 </Link>
-                                
                             </li>
                         </ul>
                     </div>
@@ -66,7 +71,6 @@ function Action({ postId, userId }) {
             );
         }
     }
-   
 }
 
 function LikePost({ postId }) {
@@ -254,7 +258,7 @@ export default function PostList() {
     const posts = useSelector(postsState$);
 
     React.useEffect(() => {
-        dispatch(actions.getPosts.getPostsRequest());
+        dispatch(actions.getPosts.getPostsRequest({ searchValue: "" }));
     }, [dispatch]);
 
     return (

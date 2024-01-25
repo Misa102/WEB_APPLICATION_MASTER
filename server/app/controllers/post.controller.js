@@ -12,7 +12,21 @@ exports.findAllPost = (req, res) => {
     if (query.hasOwnProperty("userId")) {
         userId = String(query.userId);
     }
-    Post.find()
+    let searchValue = "";
+    if (query.hasOwnProperty("searchValue")) {
+        searchValue = String(query.searchValue);
+    }
+    let querySearch = {};
+    if (searchValue !== "") {
+        querySearch = {
+            $or: [
+                { content: new RegExp(searchValue, "i") },
+                { createBy: new RegExp(searchValue, "i") },
+            ],
+        };
+    }
+
+    Post.find(querySearch)
         .then((post) => {
             let postMap = Object.assign([], post);
             if (post.length > 0) {
@@ -26,7 +40,6 @@ exports.findAllPost = (req, res) => {
                             ).length > 0;
                         return {
                             id: v._id,
-                            title: v.title,
                             content: v.content,
                             totalLike: v.totalLike,
                             createBy: v.createBy,
@@ -53,7 +66,6 @@ exports.save = (req, res) => {
         .then((user) => {
             if (user) {
                 const post = new Post({
-                    title: req.body.title,
                     content: req.body.content,
                     createBy: user.username,
                     modifiedBy: user.username,
@@ -63,7 +75,6 @@ exports.save = (req, res) => {
                     .then((post) => {
                         res.status(201).send({
                             id: post.id,
-                            title: post.title,
                             content: post.content,
                             createBy: post.createBy,
                             modifiedAt: post.modifiedAt,
@@ -151,10 +162,12 @@ exports.getDetailPost = (req, res) => {
         postId = String(params.postId);
     }
 
-    Post.findOne({_id: new ObjectId(postId)}).then(post => {
-        res.status(200).send(post);
-    }).catch((err) => {
-        res.status(500).send({ message: err });
-        return;
-    });
+    Post.findOne({ _id: new ObjectId(postId) })
+        .then((post) => {
+            res.status(200).send(post);
+        })
+        .catch((err) => {
+            res.status(500).send({ message: err });
+            return;
+        });
 };

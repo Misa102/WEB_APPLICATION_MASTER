@@ -10,6 +10,7 @@ export const INIT_STATE = {
         responseDelete: 0,
         responseUpdate: 0,
         responseDetail: {},
+        requestSearch: { searchValue: "" },
     },
     modal: {
         isShow: true,

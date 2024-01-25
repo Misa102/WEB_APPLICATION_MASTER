@@ -28,8 +28,7 @@ function CheckCloseModal() {
 
 export default function SavePost() {
     const [request, setData] = useState({
-        title: "",
-        content: "",
+        title: ""
     });
     const dispatch = useDispatch();
 
@@ -37,8 +36,7 @@ export default function SavePost() {
         dispatch(modal.hideModal("closePost"));
 
         setData({
-            title: "",
-            content: "",
+            title: ""
         });
     }, [dispatch]);
 
@@ -69,21 +67,6 @@ export default function SavePost() {
                     </div>
                     <div class="modal-body">
                         <form>
-                            <div className="mb-3">
-                                <label for="title">Title</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="title"
-                                    value={request.title}
-                                    onChange={(e) =>
-                                        setData({
-                                            ...request,
-                                            title: e.target.value,
-                                        })
-                                    }
-                                />
-                            </div>
                             <div className="mb-3">
                                 <label for="content">Content</label>
                                 <textarea

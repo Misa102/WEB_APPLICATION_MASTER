@@ -4,7 +4,7 @@ import * as api from "../../api";
 
 function* fetchPostsSaga(action) {
     try {
-        const posts = yield call(api.fetchPosts);
+        const posts = yield call(api.fetchPosts, action.payload);
         yield put(actions.getPosts.getPostsSuccess(posts.data));
     } catch (err) {
         yield put(actions.getPosts.getPostsFailure(err));
