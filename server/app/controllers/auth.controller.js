@@ -2,49 +2,160 @@ const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
 const Authority = db.authority;
+const { CLIENT_ID, CLIENT_SECRET } = require("../config/discord.config");
 
-// add for connection with Discord
 const axios = require("axios");
-const { getUser } = require("../utils/auth.util");
-
-exports.discordLogin = async (req, res) => {
-    //rediriger l'utilisateur ver l'URL d'autorisation Discord
-    res.redirect(
-        `https://discord.com/login?client_id=${config.DISCORD_CLIENT_ID}&redirect_uri=${config.DISCORD_REDIRECT_URI}&response_type=code&scope=identify`
-    );
-};
-
-exports.discordCallback = async (req, res) => {
-    try {
-        const code = req.query.code;
-
-        const response = await axios.post(
-            "https://discord.com/api/oauth2/token",
-            null,
-            {
-                params: {
-                    client_id: config.DISCORD_CLIENT_ID,
-                    client_secret: config.DISCORD_CLIENT_SECRET,
-                    redirect_uri: config.DISCORD_REDIRECT_URI,
-                    code: code,
-                    grant_type: "authorization_code",
-                    scope: "identify",
-                },
-            }
-        );
-
-        const discordToken = response.data.access_token;
-
-        console.log("Redirecting to home page...");
-        res.redirect("http://localhost:3000/");
-    } catch (error) {
-        console.error("Discord connection error:", error.message);
-        res.status(500).send("Error connecting with Discord");
-    }
-};
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+
+exports.discordLogin = async (req, res) => {
+    let code = "";
+    let query = req.query;
+    if (query.hasOwnProperty("code")) {
+        code = String(query.code);
+    }
+
+    if (code.length > 0) {
+        const params = new URLSearchParams();
+        params.append("client_id", CLIENT_ID);
+        params.append("client_secret", CLIENT_SECRET);
+        params.append("grant_type", "authorization_code");
+        params.append("code", code);
+        params.append(
+            "redirect_uri",
+            "http://localhost:5000/api/auth/login/discord"
+        );
+        try {
+            const response = await axios.post(
+                "https://discord.com/api/oauth2/token",
+                params
+            );
+            const { access_token, token_type } = response.data;
+            const userDataResponse = await axios.get(
+                "https://discord.com/api/users/@me",
+                {
+                    headers: {
+                        authorization: `${token_type} ${access_token}`,
+                    },
+                }
+            );
+
+            const userDiscord = new User({
+                discordId: userDataResponse.data.id,
+                usernameDiscord: userDataResponse.data.username,
+                email: userDataResponse.data.email,
+            });
+
+            User.findOne({ usernameDiscord: userDiscord.usernameDiscord })
+                .populate("roles", "-__v")
+                .then((user) => {
+                    if (!user) {
+                        userDiscord
+                            .save()
+                            .then((userSaved) => {
+                                Authority.findOne({ name: "user" })
+                                    .then((authority) => {
+                                        userSaved.roles = [authority._id];
+                                        userSaved
+                                            .save()
+                                            .then((result) => {
+                                                User.findOne({
+                                                    usernameDiscord:
+                                                        result.usernameDiscord,
+                                                    status: 1,
+                                                })
+                                                    .populate("roles", "-__v")
+                                                    .then((user) => {
+                                                        if (!user) {
+                                                            return res
+                                                                .status(404)
+                                                                .send({
+                                                                    message:
+                                                                        "User Not found.",
+                                                                });
+                                                        }
+
+                                                        const token = jwt.sign(
+                                                            { id: user.id },
+                                                            config.secret,
+                                                            {
+                                                                algorithm:
+                                                                    "HS256",
+                                                                allowInsecureKeySizes: true,
+                                                                expiresIn: 86400,
+                                                            }
+                                                        );
+
+                                                        let authorities = [];
+
+                                                        for (
+                                                            let i = 0;
+                                                            i <
+                                                            user.roles.length;
+                                                            i++
+                                                        ) {
+                                                            authorities.push(
+                                                                "ROLE_" +
+                                                                    user.roles[
+                                                                        i
+                                                                    ].name.toUpperCase()
+                                                            );
+                                                        }
+
+                                                        res.redirect(
+                                                            `http://localhost:3000/auth/login/discord/callback?id=${user._id}&username=${user.usernameDiscord}&email=${user.email}&roles=${authorities}&accessToken=${token}`
+                                                        );
+                                                    })
+                                                    .catch((err) => {
+                                                        res.status(500).send({
+                                                            message: err,
+                                                        });
+                                                        return;
+                                                    });
+                                            })
+                                            .catch((err) => {
+                                                res.status(500).send({
+                                                    message: err,
+                                                });
+                                                return;
+                                            });
+                                    })
+                                    .catch((err) => {
+                                        res.status(500).send({ message: err });
+                                        return;
+                                    });
+                            })
+                            .catch((err) => {
+                                res.status(500).send({ message: err });
+                                return;
+                            });
+                    } else {
+                        const token = jwt.sign({ id: user.id }, config.secret, {
+                            algorithm: "HS256",
+                            allowInsecureKeySizes: true,
+                            expiresIn: 86400,
+                        });
+
+                        let authorities = [];
+
+                        for (let i = 0; i < user.roles.length; i++) {
+                            authorities.push(
+                                "ROLE_" + user.roles[i].name.toUpperCase()
+                            );
+                        }
+
+                        res.redirect(
+                            `http://localhost:3000/auth/login/discord/callback?id=${user._id}&username=${user.usernameDiscord}&email=${user.email}&roles=${authorities}&accessToken=${token}`
+                        );
+                    }
+                });
+        } catch (error) {
+            console.log("Error", error);
+            return res.send("Some error occurred! ");
+        }
+    }
+};
 
 exports.signup = (req, res) => {
     const user = new User({
@@ -108,7 +219,7 @@ exports.signup = (req, res) => {
 exports.login = (req, res) => {
     User.findOne({
         username: req.body.username,
-        status: 1
+        status: 1,
     })
         .populate("roles", "-__v")
         .then((user) => {
