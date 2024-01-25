@@ -2,7 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../../redux/actions";
 import { Link, useNavigate } from "react-router-dom";
-
+import {
+    FacebookIcon,
+    FacebookShareButton,
+    TwitterIcon,
+    TwitterShareButton,
+} from "react-share";
 import {
     currentPost$,
     mapLikePost$,
@@ -253,6 +258,43 @@ function LikePost({ postId }) {
     }
 }
 
+function Share({content}) {
+    return (
+        <>
+            <div className="dropdown">
+                <button
+                    className="bg-transparent border-0"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                >
+                    <Icon iconName="share"></Icon>
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li className="dropdown-item">
+                        <FacebookShareButton 
+                        url="https://www.facebook.com/"
+                        quote={content}
+                        className="Demo__some-network__share-button">
+                            <FacebookIcon size={32} round />
+                            Facebook
+                        </FacebookShareButton>
+                    </li>
+                    <li className="dropdown-item">
+                        <TwitterShareButton
+                        url="https://twitter.com/"
+                        title={content}
+                        >
+                            <TwitterIcon size={32} round />
+                            Twitter
+                        </TwitterShareButton>
+                    </li>
+                </ul>
+            </div>
+        </>
+    );
+}
+
 export default function PostList() {
     const dispatch = useDispatch();
     const posts = useSelector(postsState$);
@@ -302,7 +344,7 @@ export default function PostList() {
                                                 </dl>
                                             </div>
                                             <div className="col">
-                                                <Icon iconName="share"></Icon>
+                                                <Share content={post.content}/>
                                             </div>
                                             <blockquote className="blockquote pb-2 col">
                                                 <p>

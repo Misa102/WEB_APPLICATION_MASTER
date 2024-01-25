@@ -67,8 +67,8 @@ exports.save = (req, res) => {
             if (user) {
                 const post = new Post({
                     content: req.body.content,
-                    createBy: user.username,
-                    modifiedBy: user.username,
+                    createBy: user.username === "" ? user.usernameDiscord : user.username,
+                    modifiedBy: user.username === "" ? user.usernameDiscord : user.username,
                     user: user,
                 });
                 post.save()
