@@ -14,6 +14,7 @@ export default function postsReducers(state = INIT_STATE.posts, action) {
             return {
                 ...state,
                 isLoading: true,
+                requestSearch: action.payload
             };
         case getType(getPosts.getPostsSuccess):
             return {

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import authUtils from "../utils/auth.util";
+import SearchPost from "../components/search";
 
 function AdminPage() {
     const isAdmin = authUtils.isAdmin();
@@ -74,6 +75,7 @@ function Navbar() {
                             alt="..."
                         />
                     </Link>
+                    <SearchPost/>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -111,6 +113,7 @@ function Navbar() {
                             </Link>
                             <AdminPage />
                         </div>
+
                         <StateLogin />
                     </div>
                 </div>

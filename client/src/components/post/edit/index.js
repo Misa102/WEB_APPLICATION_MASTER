@@ -1,9 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-    detailPost,
-    updatePost,
-} from "../../../redux/actions";
+import { detailPost, updatePost } from "../../../redux/actions";
 import { useNavigate } from "react-router-dom";
 
 import { useParams } from "react-router";
@@ -15,7 +12,6 @@ import validationUtils from "../../../utils/validation.util";
 
 export default function EditPost() {
     const [dataUpdate, setDataUpdate] = useState({
-        title: "",
         content: "",
         postId: "",
     });
@@ -56,7 +52,6 @@ export default function EditPost() {
             )
         ) {
             setDataUpdate({
-                title: resultGetDetailPostSelector.title,
                 content: resultGetDetailPostSelector.content,
                 postId: params.id,
             });
@@ -83,24 +78,6 @@ export default function EditPost() {
                             <div className="card-body p-3 p-md-5">
                                 <span className="text-danger">{msgUpdate}</span>
                                 <div className="row row-cols-1 g-3">
-                                    <div className="col">
-                                        <label className="form-label">
-                                            Title
-                                        </label>
-                                        <input
-                                            type="text"
-                                            class="form-control"
-                                            id="title"
-                                            placeholder="Enter title"
-                                            value={dataUpdate.title}
-                                            onChange={(e) =>
-                                                setDataUpdate({
-                                                    ...dataUpdate,
-                                                    title: e.target.value,
-                                                })
-                                            }
-                                        />
-                                    </div>
                                     <div className="col">
                                         <label className="form-label">
                                             Content

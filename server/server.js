@@ -44,8 +44,8 @@ app.listen(PORT, () => {
 const db = require("./app/models");
 const Authority = db.authority;
 
-const url = "mongodb://admin:nhat122310@103.162.20.125:27017/quote_app?directConnection=true&serverSelectionTimeoutMS=5000&authSource=quote_app&appName=mongosh+2.0.2";
-// const url = "mongodb+srv://admin:webm1@cluster0.7mbewn7.mongodb.net/quote_app?retryWrites=true&w=majority";
+// const url = "mongodb://admin:nhat122310@103.162.20.125:27017/quote_app?directConnection=true&serverSelectionTimeoutMS=5000&authSource=quote_app&appName=mongosh+2.0.2";
+const url = "mongodb+srv://admin:webm1@cluster0.7mbewn7.mongodb.net/quote_app?retryWrites=true&w=majority";
 
 mongoose
     .connect(
