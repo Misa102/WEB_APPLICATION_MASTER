@@ -3,9 +3,11 @@ const mongoose = require("mongoose");
 const User = mongoose.model(
     "User",
     new mongoose.Schema({
-        username: String,
-        email: String,
-        password: String,
+        username: {type: String, default: ""},
+        email: {type: String, default: ""},
+        password: {type: String, default: ""},
+        discordId: {type: String, default: ""},
+        usernameDiscord: {type: String, default: ""},
         status: {
             type: Number, default: 1
         },

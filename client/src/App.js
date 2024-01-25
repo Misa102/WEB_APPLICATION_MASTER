@@ -17,6 +17,7 @@ import EditPost from "./components/post/edit";
 import Toast from "./components/toast";
 import ManagementUser from "./components/admin/user";
 import PrivateRoute from "./components/private-route";
+import DiscordCallback from "./components/discord-callback";
 
 function App() {
     return (
@@ -45,6 +46,7 @@ function App() {
                             exact
                             element={<EditPost />}
                         />
+                        <Route path="/auth/login/discord/callback" exact element={<DiscordCallback />} />
                     </Routes>
                     <Footer />
                 </Router>

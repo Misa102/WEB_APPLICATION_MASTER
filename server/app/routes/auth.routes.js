@@ -22,9 +22,5 @@ module.exports = function (app) {
     app.post("/api/auth/login", controller.login);
 
 
-    app.get("/api/auth/discord-login", controller.discordLogin);
-
-    app.get("/api/auth/discord-callback", controller.discordCallback);
-
-    // app.get("/api/auth/check-token", controller.verifyToken);
+    app.get("/api/auth/login/discord", controller.discordLogin);
 };
