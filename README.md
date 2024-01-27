@@ -1,3 +1,6 @@
+!!!ATTENTION INFORMATION IMPORTANTE  :
+  Pour des raisons qu'on arrive pas a resoudre le site web marche bien seulemnt si vous utiliser la 4G et pas le WIFI.
+
 SERVER
 
 Authentification et Autorisation :
