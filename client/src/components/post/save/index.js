@@ -56,7 +56,7 @@ export default function SavePost() {
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5">Create post</h1>
+                        <h1 class="modal-title fs-5">Creer post</h1>
                         <button
                             id="closePost"
                             type="button"
@@ -68,7 +68,7 @@ export default function SavePost() {
                     <div class="modal-body">
                         <form>
                             <div className="mb-3">
-                                <label for="content">Content</label>
+                                <label for="content">Contenu</label>
                                 <textarea
                                     className="form-control"
                                     id="content"
@@ -89,14 +89,14 @@ export default function SavePost() {
                             class="btn btn-secondary"
                             data-bs-dismiss="modal"
                         >
-                            Close
+                            Fermer
                         </button>
                         <button
                             type="button"
                             class="btn btn-primary"
                             onClick={onSubmit}
                         >
-                            Save
+                            Sauvegarder
                         </button>
                     </div>
                 </div>
@@ -115,7 +115,7 @@ export default function SavePost() {
                     iconName="save"
                 >
                     <Icon iconName="save" />
-                    <span class="visually-hidden">Add Category</span>
+                    <span class="visually-hidden">Ajouter Category</span>
                 </button>
             </div>
             {modalBody}

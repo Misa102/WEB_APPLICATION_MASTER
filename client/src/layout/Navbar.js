@@ -8,7 +8,7 @@ function AdminPage() {
         return (
             <>
                 <Link className="nav-item nav-link" to="/admin/users">
-                    User management
+                    Gestion d'utilisateurs
                 </Link>
             </>
         );
@@ -31,7 +31,7 @@ function StateLogin() {
             <>
                 <div className="navbar-nav ms-lg-4">
                     <span className="nav-item nav-link">
-                        Welcome, {user.username}
+                        Bienvenue, {user.username}
                     </span>
                 </div>
                 <div
@@ -39,7 +39,7 @@ function StateLogin() {
                     role="button"
                     onClick={onSignOut}
                 >
-                    <span className="nav-item nav-link">Sign out</span>
+                    <span className="nav-item nav-link">Déconnexion</span>
                 </div>
             </>
         );
@@ -48,7 +48,7 @@ function StateLogin() {
         <>
             <div className="navbar-nav ms-lg-4">
                 <Link className="nav-item nav-link" to="/auth/login">
-                    Sign in
+                    Connexion
                 </Link>
             </div>
             <div className="d-flex align-items-lg-center mt-3 mt-lg-0">
@@ -56,7 +56,7 @@ function StateLogin() {
                     className="btn btn-sm btn-primary w-full w-lg-auto"
                     to="/auth/register"
                 >
-                    Register
+                    S'inscrire
                 </Link>
             </div>
         </>
@@ -101,11 +101,11 @@ function Navbar() {
                             </Link>
 
                             <Link className="nav-item nav-link" to="/quotes">
-                                Quotes
+                                Citations
                             </Link>
 
                             <Link className="nav-item nav-link" to="/about">
-                                About
+                                A Propos
                             </Link>
 
                             <Link className="nav-item nav-link" to="/contact">

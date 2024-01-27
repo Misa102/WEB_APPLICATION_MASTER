@@ -144,7 +144,7 @@ export default function Login() {
                                                 className="btn btn-primary btn-lg"
                                                 onClick={onSubmit}
                                             >
-                                                Log In
+                                                Connexion
                                             </button>
                                         </div>
                                     </div>
@@ -160,14 +160,14 @@ export default function Login() {
                                                 to="/auth/register"
                                                 className="link-secondary text-decoration-none"
                                             >
-                                                Create new account
+                                                Creer nouveau compte
                                             </Link>
 
                                             <a
                                                 href="#!"
                                                 className="link-secondary text-decoration-none"
                                             >
-                                                Forgot password
+                                                Oublier mot de passe
                                             </a>
                                         </div>
                                     </div>

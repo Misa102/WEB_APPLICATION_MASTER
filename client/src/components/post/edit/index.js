@@ -72,7 +72,7 @@ export default function EditPost() {
                     <div className="col-md-8 col-lg-6 col-xxl-4 mx-auto my-3">
                         <div className="card shadow-sm border-0 rounded-2 h-100">
                             <div className="card-header p-4 pb-0 bg-transparent border-0 d-flex align-items-center">
-                                <h5>Update quotes</h5>
+                                <h5>Mise à jour citation</h5>
                             </div>
 
                             <div className="card-body p-3 p-md-5">
@@ -80,7 +80,7 @@ export default function EditPost() {
                                 <div className="row row-cols-1 g-3">
                                     <div className="col">
                                         <label className="form-label">
-                                            Content
+                                            Contenu
                                         </label>
                                         <textarea
                                             type="text"
@@ -101,7 +101,7 @@ export default function EditPost() {
                                             className="btn btn-primary btn-lg"
                                             onClick={onUpdate}
                                         >
-                                            Save
+                                            Sauvegarder
                                         </button>
                                     </div>
                                 </div>

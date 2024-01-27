@@ -188,7 +188,7 @@ export default function Register() {
                                                 class="btn btn-primary btn-lg"
                                                 onClick={onRegister}
                                             >
-                                                Registre
+                                                S'inscrire
                                             </button>
                                         </div>
                                     </div>

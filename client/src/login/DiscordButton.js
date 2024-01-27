@@ -12,7 +12,7 @@ const DiscordButton = () => {
 
     return (
         <button onClick={onDiscordLogin} className="btn btn-secondary btn-lg">
-            Connect with Discord
+            Connexion avec Discord
         </button>
     );
 };

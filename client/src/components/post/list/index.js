@@ -57,7 +57,7 @@ function Action({ postId, userId }) {
                                 onClick={onDelete}
                             >
                                 <Icon iconName="delete" />
-                                <span>Delete</span>
+                                <span>Supprimer</span>
                             </li>
                             <li className="dropdown-item">
                                 <Link
@@ -66,7 +66,7 @@ function Action({ postId, userId }) {
                                 >
                                     <div className="d-flex">
                                         <Icon iconName="edit" />
-                                        <span>Edit</span>
+                                        <span>Modifier</span>
                                     </div>
                                 </Link>
                             </li>

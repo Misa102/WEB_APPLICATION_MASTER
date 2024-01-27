@@ -39,7 +39,7 @@ export default function SearchPost() {
                     type="submit"
                     onClick={onClickSearchPost}
                 >
-                    Search
+                    Recherche
                 </button>
             </div>
         </>
