@@ -1,7 +1,6 @@
 module.exports = {
-    CLIENT_ID: "1202612506556891146",
-    CLIENT_SECRET: "6wQlVzBXbooZHVqIsXcUvOBv9X-vOLw0",
-    URL: "https://discord.com/api/oauth2/authorize?client_id=1202612506556891146&permissions=8&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fapi%2Fauth%2Flogin%2Fdiscord&scope=identify+email+bot",
-    BOT_TOKEN: "MTIwMjYxMjUwNjU1Njg5MTE0Ng.GqlacQ.Hc9lAttVWaFAMDo4rjCF-IAh0dVM1wlefL-w_k"
+    CLIENT_ID: "1200051729069244499",
+    CLIENT_SECRET: "eMYY95Plj9bAE7DBN6nyGEVF4Z3quZJK",
+    URL: "https://discord.com/api/oauth2/authorize?client_id=1200051729069244499&permissions=8&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fapi%2Fauth%2Flogin%2Fdiscord&scope=identify+email+bot",
+    BOT_TOKEN: "MTIwMDA1MTcyOTA2OTI0NDQ5OQ.GmjRL0.M4KZCIMdclC7dcGwqUAIxTN-pM_hzZ2eeEHpkA"
 };
-
