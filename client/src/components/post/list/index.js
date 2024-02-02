@@ -308,7 +308,6 @@ export default function PostList() {
             <div
                 style={{ backgroundColor: "#eee" }}
                 className="cursor-pointer"
-                r
             >
                 <div className="container py-5">
                     <div className="row d-flex h-100 row-cols-2 g-4">
