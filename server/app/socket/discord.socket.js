@@ -118,18 +118,11 @@ client.on("messageCreate", (msg) => {
                                 const embedPost = new Discord.EmbedBuilder()
                                     .setColor(0x0099ff)
                                     .addFields(
-                                        postLike.map(
-                                            (p) => (
-                                                {
-                                                    name: `Id: ${p.post._id}`,
-                                                    value: `Content: ${p.post.content}`,
-                                                },
-                                                {
-                                                    name: `Author: ${p.post.createBy}`,
-                                                    value: `Total like: ${p.post.totalLike}`,
-                                                }
-                                            )
-                                        )
+                                        postLike.map((p) => ({
+                                            name: `Id: ${p.post._id}`,
+                                            value: `Content: ${p.post.content}\nAuthor: ${p.post.createBy}\nTotal like: ${p.post.totalLike}`,
+                                        }))
+                                        
                                     );
 
                                 msg.reply({ embeds: [embedPost] });
