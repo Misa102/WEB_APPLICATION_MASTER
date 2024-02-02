@@ -74,14 +74,17 @@ client.on("messageCreate", (msg) => {
                 if (user) {
                     Post.find({ user: user })
                         .then((post) => {
-                            if (post) {
+                            if (post.length > 0) {
                                 const embedPost = new Discord.EmbedBuilder()
-                                .setColor(0x0099FF)
-                                .addFields(post.map(p => (
-                                    {name: `Id: ${p.id}`, value: `Content: ${p.content}`}
-                                )))
-                                         
-                                msg.reply({embeds: [embedPost]})
+                                    .setColor(0x0099ff)
+                                    .addFields(
+                                        post.map((p) => ({
+                                            name: `Id: ${p.id}`,
+                                            value: `Content: ${p.content}`,
+                                        }))
+                                    );
+
+                                msg.reply({ embeds: [embedPost] });
                             } else {
                                 msg.reply("No quotes found");
                                 msg.reply(
@@ -97,6 +100,46 @@ client.on("messageCreate", (msg) => {
                     msg.reply(
                         "Please visit this link to connect http://localhost:3000/auth/login"
                     );
+                }
+            })
+            .catch((err) => {
+                msg.reply(`Error: ${err}`);
+            });
+    }
+
+    if (content.substring(0, 10) === "/likequote") {
+        User.findOne({ usernameDiscord: username })
+            .then((user) => {
+                if (user) {
+                    PostLike.find({ user: user })
+                        .populate("post", "-__v")
+                        .then((postLike) => {
+                            if (postLike.length > 0) {
+                                const embedPost = new Discord.EmbedBuilder()
+                                    .setColor(0x0099ff)
+                                    .addFields(
+                                        postLike.map(
+                                            (p) => (
+                                                {
+                                                    name: `Id: ${p.post._id}`,
+                                                    value: `Content: ${p.post.content}`,
+                                                },
+                                                {
+                                                    name: `Author: ${p.post.createBy}`,
+                                                    value: `Total like: ${p.post.totalLike}`,
+                                                }
+                                            )
+                                        )
+                                    );
+
+                                msg.reply({ embeds: [embedPost] });
+                            } else {
+                                msg.reply("You does not like any post");
+                            }
+                        })
+                        .catch((err) => {
+                            msg.reply(`Error: ${err}`);
+                        });
                 }
             })
             .catch((err) => {
